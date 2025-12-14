@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | DE MEYER Arthur - SysAdmin & Cyber</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <nav>
+        <div class="nav-logo"> <i class="fas fa-terminal" style="color:var(--accent); margin-right: 10px;"></i> Arthur DE MEYER</div>
+        <div class="nav-links">
+            <a href="#about">./Profil</a>
+            <a href="#skills">./Skills</a>
+            <a href="#projects">./Lab_Projects</a>
+            <a href="#experience">./XP</a>
+            <a href="mailto:demeyer.arthur@outlook.com" style="border: 1px solid var(--accent); padding: 5px 15px; border-radius: 4px;">CONTACT</a>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="container hero-content">
+            <h5 class="mono" style="color: var(--accent);">System Status: ONLINE</h5>
+            <h1><span id="typing-title"></span><span class="highlight">_</span></h1>
+            <p>Futur Expert Cybersécurité & Admin Sys | Passionné d'Infras Résilientes</p>
+            
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                    <span style="margin-left: 10px; font-size: 0.8rem; color: #888;">root@portfolio:~</span>
+                </div>
+                <div class="terminal-body" id="terminal-output"></div>
+            </div>
+        </div>
+    </section>
+
+   <section id="about" class="container">
+        <h2>01. Profil</h2>
+        <div style="max-width: 800px;">
+            <p style="font-size: 1.1rem; color: #ccc;">
+                Passionné par la <strong>conception d'architectures résilientes</strong> et le conseil, je suis convaincu d'une chose : 
+                <strong style="color:white">pour sécuriser efficacement une infrastructure, il faut comprendre comment elle peut rompre.</strong>
+            </p>
+            
+            <p style="margin-top: 20px;">
+                Actuellement en fin de cursus <strong>TSRS</strong>, je construis mon expertise étage par étage :
+            </p>
+            
+            <ul style="margin-top: 15px; margin-bottom: 20px; list-style: none; padding-left: 10px; border-left: 2px solid var(--accent);">
+                <li style="margin-bottom: 10px; padding-left: 15px;">
+                    <i class="fas fa-check" style="color:var(--accent); margin-right:10px;"></i>
+                    <strong>Maintenant :</strong> Maîtrise opérationnelle (Alternance TSRS).
+                </li>
+                <li style="margin-bottom: 10px; padding-left: 15px;">
+                    <i class="fas fa-server" style="color:var(--accent); margin-right:10px;"></i>
+                    <strong>2026 - 2028 :</strong> Administration Système pour éprouver la réalité du terrain.
+                </li>
+                <li style="padding-left: 15px;">
+                    <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:10px;"></i>
+                    <strong>Futur :</strong> Expert Cyber & <strong>Architecte/Consultant</strong> (ESD).
+                </li>
+            </ul>
+
+            <p>
+                Ma philosophie reste inchangée : <span class="mono" style="color:var(--accent)">Build it. Break it. Fix it.</span>
+            </p>
+        </div>
+    </section>
+
+   <section id="skills" class="container">
+        <h2>02. Stack Technique</h2>
+        
+        <div class="skills-grid">
+            <span class="skill-tag cyber"><i class="fab fa-windows"></i> Windows Server & AD DS</span>
+            <span class="skill-tag cyber"><i class="fab fa-linux"></i> Linux (Debian/RedHat)</span>
+            <span class="skill-tag"><i class="fas fa-server"></i> VMware / Proxmox</span>
+            <span class="skill-tag"><i class="fab fa-microsoft"></i> Intune & Entra ID (Azure)</span>
+            
+            <span class="skill-tag cyber"><i class="fas fa-shield-alt"></i> Pfsense & Snort</span>
+            <span class="skill-tag"><i class="fas fa-network-wired"></i> TCP/IP & VLANs</span>
+            <span class="skill-tag"><i class="fas fa-chart-line"></i> Supervision (Centreon)</span>
+            
+            <span class="skill-tag cyber"><i class="fas fa-terminal"></i> PowerShell & Bash</span>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button onclick="openSkillsModal()" class="btn-more-skills">
+                <i class="fas fa-database"></i> EXPAND_FULL_DATABASE [...]
+            </button>
+        </div>
+    </section>
+
+    <div id="skills-modal" class="modal-overlay hidden">
+        <div class="modal-window" style="max-width: 900px;">
+            <div class="modal-header">
+                <div class="modal-dots">
+                    <div class="dot red" onclick="closeSkillsModal()"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <span class="modal-title-text">FULL_SKILLSET_DUMP.LOG</span>
+            </div>
+            
+            <div class="modal-content">
+                <p style="color: var(--accent); margin-bottom: 20px; font-family: 'Fira Code', monospace;">
+                    > Listing all acquired capabilities...
+                </p>
+
+                <div class="full-skills-container">
+                    
+                    <div class="skill-category">
+                        <h3><i class="fas fa-server"></i> Infrastructure & Cloud</h3>
+                        <ul>
+                            <li>Windows Server 2019/2022</li>
+                            <li>Active Directory (GPO, DNS, DHCP)</li>
+                            <li>Microsoft 365 & Exchange Online</li>
+                            <li>Microsoft Entra ID (Azure AD)</li>
+                            <li>MDM Microsoft Intune</li>
+                            <li>Virtualisation (VMware ESXi, Proxmox)</li>
+                            <li>Déploiement d'images (MDT/WDS)</li>
+                            <li>Sauvegarde & Restauration</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><i class="fas fa-shield-alt"></i> Réseau & Cyber</h3>
+                        <ul>
+                            <li>Modèle OSI & TCP/IP</li>
+                            <li>Firewalling (Pfsense, Règles, NAT)</li>
+                            <li>Supervision (Centreon, GLPI)</li>
+                            <li>Câblage, Brassage & Switchs</li>
+                            <li>Analyse de paquets (Wireshark)</li>
+                            <li>Sécurisation des accès (MFA, ACL)</li>
+                            <li>Durcissement Système (Hardening)</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><i class="fas fa-tools"></i> Support & Outils</h3>
+                        <ul>
+                            <li>Support N1/N2 & Troubleshooting</li>
+                            <li>Ticketing (ServiceNow, GLPI)</li>
+                            <li>Méthodologie ITIL</li>
+                            <li>Rédaction de procédures techniques</li>
+                            <li>Maintenance Hardware (PC/Serveurs)</li>
+                            <li>Formation & Accompagnement Utilisateurs</li>
+                            <li>Gestion de parc informatique</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><i class="fas fa-code"></i> Scripting & Web</h3>
+                        <ul>
+                            <li>PowerShell (Automatisation)</li>
+                            <li>Bash (Scripting Linux)</li>
+                            <li>SQL (Bases de données)</li>
+                            <li>HTML5 / CSS3 (Notions)</li>
+                            <li>Git / GitHub (Versionning)</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="projects" class="container">
+        <h2>03. Laboratoire</h2>
+       <div class="projects-grid">
+    
+    <div class="project-card" onclick="openProject('ad-lab')" style="cursor: pointer;">
+        <div class="project-header">
+            <h3><i class="fas fa-building"></i> Active Directory Lab</h3>
+            <span class="project-tech-stack">Windows Server 2022 • GPO</span>
+        </div>
+        <div class="project-body">
+            <p>Cliquez pour voir les détails de l'architecture et les captures d'écran.</p>
+            <div style="margin-top:10px; font-size:0.8rem; color:var(--accent);">
+                [ ACCESS_LOGS_AVAILABLE ]
+            </div>
+        </div>
+    </div>
+    
+    <div class="project-card" onclick="openProject('pfsense')" style="cursor: pointer;">
+        <div class="project-header">
+            <h3><i class="fas fa-lock"></i> Network Security</h3>
+            <span class="project-tech-stack">Pfsense • Snort</span>
+        </div>
+        <div class="project-body">
+            <p>Cliquez pour voir la configuration Firewall et les règles de filtrage.</p>
+            <div style="margin-top:10px; font-size:0.8rem; color:var(--accent);">
+                [ CONFIDENTIAL_DATA ]
+            </div>
+        </div>
+    </div>
+
+</div>
+    </section>
+    <section id="experience" class="container">
+        <h2>04. Parcours Professionnel</h2>
+        
+        <div class="timeline">
+            
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="job-header">
+                        <h3 class="job-title">Technicien Système & Réseau Proximité</h3>
+                        <span class="job-company">ECONOCOM</span>
+                        <span class="job-date">Septembre 2025 - Novembre 2026</span>
+                    </div>
+                    <div class="job-body">
+                        <p>Alternant Technicien Systèmes et Réseaux Sécurité (Niveau Bac+2).</p>
+                        <ul class="job-missions">
+                           <li><strong>Support Utilisateur & VIP :</strong> Diagnostic avancé (Hardware/Software), prise en main à distance et interventions de proximité avec respect des SLA.</li>
+            <li><strong>Administration Système (IAM) :</strong> Gestion des comptes utilisateurs, droits d'accès et groupes de sécurité sous Active Directory et Azure AD (Entra ID).</li>
+            <li><strong>Gestion Office 365 :</strong> Administration des licences, support collaboratif (Teams, SharePoint, OneDrive) et gestion des boîtes mails (Exchange).</li>
+            <li><strong>Maintien en Condition Opérationnelle :</strong> Masterisation et déploiement des postes (Imaging), gestion de parc (Asset Management) et des stocks.</li>
+            <li><strong>Sécurité du Endpoint :</strong> Application des correctifs (Patch Management), vérification du chiffrement (BitLocker) et des agents de sécurité (Antivirus/EDR).</li>
+            <li><strong>Réseau & Connectivité :</strong> Brassage, dépannage LAN/WLAN, configuration VPN et support sur la téléphonie mobile.</li>
+                            
+                        </ul>
+                        <div class="job-skills">
+                           <span class="mini-tag">Active Directory</span>
+            <span class="mini-tag">Azure AD / Entra ID</span>
+            <span class="mini-tag">Office 365 Admin</span>
+            <span class="mini-tag">Windows 10/11</span>
+            <span class="mini-tag">ITSM / Ticketing</span>
+            <span class="mini-tag">Déploiement (MDT/SCCM)</span>
+            <span class="mini-tag">Réseau TCP/IP</span>
+            <span class="mini-tag">Hardware</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="job-header">
+                       <h3 class="job-title">Technicien Support N1 (Client McDonald's)</h3>
+        <span class="job-company">HELPLINE</span>
+        <span class="job-date">Septembre 2024 - Septembre 2025</span>
+    </div>
+    <div class="job-body">
+        <p>Support technique Helpdesk pour les restaurants McDonald's. Gestion des incidents en environnement critique à fort volume (ITIL).</p>
+        <ul class="job-missions">
+            <li><strong>Gestion des Incidents N1 :</strong> Prise en charge, qualification et diagnostic des tickets avec un taux de satisfaction utilisateurs maintenu à 100%.</li>
+            <li><strong>Support Technique Polyvalent :</strong> Dépannage des postes de travail, TPE, imprimantes et logiciels métiers sous environnements Windows et Linux.</li>
+            <li><strong>Processus & Escalade :</strong> Suivi du cycle de vie du ticket, documentation des procédures (KB) et escalade qualifiée vers le N2/N3.</li>
+            <li><strong>Gestion des Accès :</strong> Création de comptes, réinitialisation de mots de passe et gestion de la sécurité des accès utilisateurs.</li>
+            <li><strong>Déploiement :</strong> Installation et configuration à distance de périphériques et mises à jour logicielles.</li>
+        </ul>
+        <div class="job-skills">
+            <span class="mini-tag">Helpdesk ITIL</span>
+            <span class="mini-tag">Windows & Linux</span>
+            <span class="mini-tag">Logiciels Métiers</span>
+            <span class="mini-tag">Gestion d'incidents</span>
+            <span class="mini-tag">Relation Client</span>
+            <span class="mini-tag">Documentation</span>
+        </div>
+    </div>
+            </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="#" class="btn-download">
+                <i class="fas fa-file-download"></i> Télécharger CV Complet (.pdf)
+            </a>
+        </div>
+    </section>
+
+  <footer>
+        <div class="container footer-container">
+            
+            <div class="footer-col">
+                <h3 class="mono" style="color: #fff;">Arthur <span style="color:var(--accent)">DE MEYER</span></h3>
+                <p style="color: #888; margin-top: 10px; font-size: 0.9rem;">
+                    Technicien Système & Réseau.<br>
+                    Futur Expert Cybersécurité.
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/ArthurDeMeyer" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/arthur-de-meyer-/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:demeyer.arthur@outlook.com" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="mono">./NAVIGATION</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">> Profil</a></li>
+                    <li><a href="#skills">> Stack Technique</a></li>
+                    <li><a href="#projects">> Laboratoire</a></li>
+                    <li><a href="#experience">> Parcours XP</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="mono">./SYS_INFO</h4>
+                <ul class="sys-info">
+                    <li>STATUS: <span style="color:var(--accent)">ONLINE</span></li>
+                    <li>LOC: <span style="color:#fff">FRANCE</span></li>
+                    <li>SESSION: <span style="color:#888">VISITOR_GUEST</span></li>
+                    <li>VERSION: <span style="color:#888">v2.0.4</span></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p class="mono" style="font-size: 0.8rem; color: #555;">
+                © 2025 Arthur De Meyer. All protocols secured.
+            </p>
+            <a href="#hero" class="back-to-top">
+                <i class="fas fa-arrow-up"></i> TOP
+            </a>
+        </div>
+    </footer>
+<div id="project-modal" class="modal-overlay hidden">
+    <div class="modal-window">
+        <div class="modal-header">
+            <div class="modal-dots">
+                <div class="dot red" onclick="closeModal()"></div> <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <span id="modal-title" class="modal-title-text">PROJECT_VIEWER.EXE</span>
+        </div>
+        
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="Project Screenshot" class="modal-img">
+            
+            <div class="modal-details">
+                <h3 id="modal-name">Nom du Projet</h3>
+                <p id="modal-desc">Description complète...</p>
+                
+                <div class="modal-techs" id="modal-techs">
+                    </div>
+
+                <a href="#" id="modal-link" target="_blank" class="btn-repo">
+                    <i class="fab fa-github"></i> Voir le code / Repo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>

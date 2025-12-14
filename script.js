@@ -1,4 +1,6 @@
-// --- 1. EFFET MATRIX RAIN ---
+// ==========================================
+// 1. EFFET MATRIX RAIN (GLOBAL)
+// ==========================================
 const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -33,7 +35,9 @@ function drawMatrix() {
 }
 setInterval(drawMatrix, 33);
 
-// --- 2. EFFET TYPING TITRE ---
+// ==========================================
+// 2. EFFET TYPING TITRE (GLOBAL)
+// ==========================================
 const titleText = "Hello, I am Arthur De Meyer";
 let i = 0;
 function typeTitle() {
@@ -46,7 +50,9 @@ function typeTitle() {
 }
 setTimeout(typeTitle, 500);
 
-// --- 3. TERMINAL INTERACTIF (Version Améliorée 2.0) ---
+// ==========================================
+// 3. TERMINAL INTERACTIF (CLI 2.0)
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     
     const terminalOutput = document.getElementById('terminal-output');
@@ -54,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    // --- DONNÉES DU CLI (SKILLS) ---
+    // Données pour la commande 'skills' dans le terminal
     const cliData = {
         system: ["Windows Server 2019/22", "Active Directory (AD DS)", "Linux (Debian/RHEL)", "VMware / Proxmox", "Intune / Entra ID"],
         network: ["TCP/IP & OSI", "VLAN / Subnetting", "Cisco Packet Tracer", "Pfsense / Firewalling", "Wireshark (Analysis)"],
@@ -62,20 +68,18 @@ document.addEventListener('DOMContentLoaded', () => {
         soft: ["ITIL v4", "Gestion d'incidents", "Documentation", "Formation utilisateurs", "Anglais Technique"]
     };
 
-    // Fonction d'affichage avec support HTML
     function printLine(htmlContent) {
         const div = document.createElement('div');
         div.innerHTML = htmlContent;
-        div.style.marginBottom = "5px"; // Petit espacement pour la lisibilité
+        div.style.marginBottom = "5px";
         terminalOutput.appendChild(div);
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    // Création de la ligne de saisie
     function createInputLine() {
         const container = document.createElement('div');
         container.style.display = 'flex';
-        container.style.marginTop = '10px'; // Un peu plus d'espace
+        container.style.marginTop = '10px';
 
         const prompt = document.createElement('span');
         prompt.className = 'prompt';
@@ -101,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 handleCommand(command);
                 createInputLine();
             }
-            // Historique des commandes (Optionnel : flèche haut)
         });
 
         container.appendChild(prompt);
@@ -111,14 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    // --- LOGIQUE DES COMMANDES ---
     async function handleCommand(cmd) {
         const cleanCmd = cmd.trim().toLowerCase();
-        let response = "";
-
-        // Séparateur visuel pour la clarté
-        const separator = "<div style='color:#333'>----------------------------------------</div>";
-
+        
         switch(cleanCmd) {
             case 'help':
                 printLine(`
@@ -148,31 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `);
                 break;
-            case 'projects':
-                printLine(`<div style="color:var(--accent)">> SCANNING_LOCAL_LABS... [OK]</div>`);
-                printLine(`
-                    <div style="margin-top:10px;">
-                        <div style="margin-bottom:10px;">
-                            <strong style="color:#fff;">[DIR] Active Directory Lab</strong><br>
-                            <span style="color:#888;">Windows Server 2022 • GPO Hardening • PowerShell Auto</span>
-                        </div>
-                        <div style="margin-bottom:10px;">
-                            <strong style="color:#fff;">[DIR] Network Security & FW</strong><br>
-                            <span style="color:#888;">Pfsense • Snort IDS • VLAN Segmentation</span>
-                        </div>
-                        <div style="margin-top:15px; color:#aaa; font-style:italic; border-top:1px dashed #333; padding-top:5px;">
-                            > Tip: Use the graphical interface (below) to view screenshots and full reports.
-                        </div>
-                    </div>
-                `);
-                break;
+
             case 'skills':
-                // Affichage structuré des compétences
                 printLine(`<div style="color:var(--accent)">> READING_DATABASE_SKILLS... [OK]</div>`);
-                
                 let skillsOutput = `<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:15px; margin-top:10px;">`;
-                
-                // Fonction helper pour générer une liste
                 const generateList = (title, items) => `
                     <div>
                         <strong style="color:#fff; text-decoration:underline">${title}</strong>
@@ -180,20 +157,34 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${items.map(i => `<li>- ${i}</li>`).join('')}
                         </ul>
                     </div>`;
-
                 skillsOutput += generateList("SYSTEM & CLOUD", cliData.system);
                 skillsOutput += generateList("NETWORK & SEC", cliData.network);
                 skillsOutput += generateList("TOOLS & DEVOPS", cliData.tools);
                 skillsOutput += generateList("SOFT SKILLS", cliData.soft);
-                
                 skillsOutput += `</div>`;
                 printLine(skillsOutput);
                 break;
 
+            case 'projects':
+                printLine(`<div style="color:var(--accent)">> SCANNING_LOCAL_LABS... [OK]</div>`);
+                printLine(`
+                    <div style="margin-top:10px;">
+                        <div style="margin-bottom:10px;">
+                            <strong style="color:#fff;">1. Active Directory Lab</strong><br>
+                            <span style="color:#888;">Windows Server 2022 • GPO • PowerShell.</span>
+                        </div>
+                        <div style="margin-bottom:10px;">
+                            <strong style="color:#fff;">2. Network Security</strong><br>
+                            <span style="color:#888;">Pfsense • Snort IDS • VLANs.</span>
+                        </div>
+                    </div>
+                `);
+                break;
+
             case 'social':
                 printLine(`
-                    <div><i class="fab fa-github"></i> GitHub: <a href="https://github.com/ArthurDeMeyer" target="_blank" style="color:var(--accent)">https://github.com/ArthurDeMeyer</a></div>
-                    <div><i class="fab fa-linkedin"></i> LinkedIn: <a href="https://www.linkedin.com/in/arthur-de-meyer-/" target="_blank" style="color:var(--accent)">https://www.linkedin.com/in/arthur-de-meyer-/</a></div>
+                    <div><i class="fab fa-github"></i> GitHub: <a href="https://github.com/TON_PSEUDO" target="_blank" style="color:var(--accent)">github.com/TON_PSEUDO</a></div>
+                    <div><i class="fab fa-linkedin"></i> LinkedIn: <a href="https://linkedin.com/in/TON_PSEUDO" target="_blank" style="color:var(--accent)">linkedin.com/in/TON_PSEUDO</a></div>
                 `);
                 break;
 
@@ -204,27 +195,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
             case 'cv':
                 printLine(`Downloading 'CV_Arthur_De_Meyer_2025.pdf'...`);
-                // Simuler un téléchargement ou ouvrir le lien
                 setTimeout(() => {
-                    // Remplace le # par le lien réel de ton PDF
+                    // Mets le lien de ton PDF ici
                     window.open('#', '_blank'); 
                     printLine(`<span style="color:#0f0">[DOWNLOAD COMPLETE]</span>`);
-                    createInputLine(); // On recrée la ligne car le timeout sort du flux normal
+                    createInputLine(); 
                 }, 1000);
-                return; // On retourne pour gérer l'input dans le timeout
+                return;
 
             case 'whoami':
                 printLine(`root@portfolio (Guest Session)`);
                 break;
             
-            case 'date':
-                printLine(new Date().toString());
-                break;
-
-            case 'sudo':
-                printLine(`<span style="color:red">Permission denied: you are not a real admin yet. ;)</span>`);
-                break;
-
             case 'ls':
             case 'dir':
                 printLine(`
@@ -240,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'clear':
             case 'cls':
                 terminalOutput.innerHTML = "";
-                return; // Pas besoin de printLine après un clear
+                return; 
             
             case '':
                 break;
@@ -250,7 +232,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Séquence de démarrage (BOOT)
     async function runBoot() {
         terminalOutput.innerHTML = ''; 
         const bootTexts = [
@@ -268,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         createInputLine();
     }
 
-    // Garder le focus
+    // Focus automatique sur l'input du terminal
     document.addEventListener('click', function(e) {
         if (e.target.closest('.terminal-window')) {
             const activeInput = terminalOutput.querySelector('input');
@@ -277,12 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     runBoot();
+});
 
-}); // Fin du DOMContentLoaded pour le terminal // <--- ICI : ON FERME LE DOMContentLoaded POUR LE TERMINAL
-
-// --- 4. GESTION DES MODALES PROJETS ---
-// Ce code est maintenant GLOBAL (accessible par le onclick du HTML)
-
+// ==========================================
+// 4. GESTION DES MODALES PROJETS (GLOBAL)
+// ==========================================
 const projectsData = {
     "ad-lab": {
         title: "Active Directory Lab",
@@ -300,7 +280,6 @@ const projectsData = {
     }
 };
 
-// On sélectionne les éléments une fois que le script se charge (car il est en bas du body)
 const modal = document.getElementById('project-modal');
 const modalTitle = document.getElementById('modal-name');
 const modalDesc = document.getElementById('modal-desc');
@@ -308,16 +287,10 @@ const modalImg = document.getElementById('modal-image');
 const modalTechs = document.getElementById('modal-techs');
 const modalLink = document.getElementById('modal-link');
 
-// Fonction globale pour ouvrir la modale
 function openProject(projectId) {
     const project = projectsData[projectId];
-    
-    if(!project) {
-        console.error("Projet non trouvé : " + projectId);
-        return; 
-    }
+    if(!project) return; 
 
-    // 1. Remplir les infos
     modalTitle.textContent = project.title;
     modalDesc.innerHTML = project.description;
     
@@ -332,26 +305,48 @@ function openProject(projectId) {
         modalLink.href = project.link;
     }
 
-    // 2. Remplir les tags techniques
     modalTechs.innerHTML = project.techs.map(tech => 
         `<span class="skill-tag" style="display:inline-block; margin-right:5px; margin-bottom:5px; font-size:0.8rem; color:#fff; border:1px solid #333;">${tech}</span>`
     ).join('');
 
-    // 3. Afficher la modale
     modal.classList.add('active');
     modal.classList.remove('hidden');
 }
 
-// Fonction globale pour fermer
 function closeModal() {
     modal.classList.remove('active');
     setTimeout(() => modal.classList.add('hidden'), 300);
 }
 
-// Fermer si on clique en dehors
 if (modal) {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
 }
 
+// ==========================================
+// 5. GESTION MODALE SKILLS (GLOBAL) - C'EST ICI LE CORRECTIF
+// ==========================================
+const skillsModal = document.getElementById('skills-modal');
+
+function openSkillsModal() {
+    if(!skillsModal) return;
+    skillsModal.classList.remove('hidden');
+    setTimeout(() => {
+        skillsModal.classList.add('active');
+    }, 10);
+}
+
+function closeSkillsModal() {
+    if(!skillsModal) return;
+    skillsModal.classList.remove('active');
+    setTimeout(() => {
+        skillsModal.classList.add('hidden');
+    }, 300);
+}
+
+if(skillsModal) {
+    skillsModal.addEventListener('click', (e) => {
+        if (e.target === skillsModal) closeSkillsModal();
+    });
+}

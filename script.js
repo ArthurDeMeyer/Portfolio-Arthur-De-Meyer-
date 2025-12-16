@@ -418,7 +418,7 @@ const projectsData = {
             <div style="margin-top:15px; font-size:0.85rem; color:#888;">Sysprep Command :</div>
             <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace;">sysprep /generalize /oobe /shutdown /unattend:unattend.xml</code>
         `,
-        image: "assets/sysprep.png", // J'ai corrigé le .png.png ici !
+        image: "assets/sysprep.png.png", // J'ai corrigé le .png.png ici !
         techs: ["Windows 10", "Sysprep", "WSIM", "Audit Mode", "XML"],
         link: "#"
     },

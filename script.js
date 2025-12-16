@@ -1,39 +1,62 @@
 // ==========================================
-// 1. EFFET MATRIX RAIN (GLOBAL)
+// 1. EFFET MATRIX RAIN (SÉCURISÉ)
 // ==========================================
-const canvas = document.getElementById('matrix-canvas');
-const ctx = canvas.getContext('2d');
+let matrixCanvas, matrixCtx; // Variables globales pour être accessibles
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+document.addEventListener('DOMContentLoaded', () => {
+    // On initialise seulement quand la page est prête
+    matrixCanvas = document.getElementById('matrix-canvas');
+    
+    // Sécurité : si le canvas n'existe pas, on arrête pour éviter le crash
+    if (!matrixCanvas) {
+        console.error("Canvas Matrix introuvable");
+        return;
+    }
 
+    matrixCtx = matrixCanvas.getContext('2d');
+    
+    // Lancement
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    setInterval(drawMatrix, 33);
+});
+
+// Variables pour l'animation
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
 const fontSize = 14;
-const columns = canvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
+let columns, drops;
+
+function resizeCanvas() {
+    if (matrixCanvas) {
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        
+        // Recalcul des colonnes après redimensionnement
+        columns = matrixCanvas.width / fontSize;
+        drops = Array(Math.floor(columns)).fill(1);
+    }
+}
 
 function drawMatrix() {
-    ctx.fillStyle = "rgba(5, 5, 5, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (!matrixCtx || !matrixCanvas) return;
+
+    matrixCtx.fillStyle = "rgba(5, 5, 5, 0.05)";
+    matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
     
-    ctx.fillStyle = "#00ff9d";
-    ctx.font = fontSize + "px monospace";
+    matrixCtx.fillStyle = "#00ff9d";
+    matrixCtx.font = fontSize + "px monospace";
 
     for(let i = 0; i < drops.length; i++) {
         const text = letters.charAt(Math.floor(Math.random() * letters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
         
-        if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        if(drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
             drops[i] = 0;
         }
         drops[i]++;
     }
 }
-setInterval(drawMatrix, 33);
+
 
 // ==========================================
 // 2. EFFET TYPING TITRE (GLOBAL)
@@ -50,6 +73,7 @@ function typeTitle() {
 }
 setTimeout(typeTitle, 500);
 
+
 // ==========================================
 // 3. TERMINAL INTERACTIF (CLI 2.0)
 // ==========================================
@@ -60,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    // Données pour la commande 'skills' dans le terminal
     const cliData = {
         system: ["Windows Server 2019/22", "Active Directory (AD DS)", "Linux (Debian/RHEL)", "VMware / Proxmox", "Intune / Entra ID"],
         network: ["TCP/IP & OSI", "VLAN / Subnetting", "Cisco Packet Tracer", "Pfsense / Firewalling", "Wireshark (Analysis)"],
@@ -138,8 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="color:var(--accent)">> USER_PROFILE_LOADED</div>
                     <div><strong>Arthur DE MEYER</strong> - Technicien Système & Réseau</div>
                     <div style="margin-top:5px; color:#ccc">
-                        "Passionné par la conception d'architectures résilientes.
-                        Je construis mon parcours pour devenir <strong>Architecte Sécurité</strong>."
+                        "En route vers l'Administration Système.
+                        Gestion d'Infrastructure & Sécurité Opérationnelle."
                     </div>
                     <div style="margin-top:5px; font-style:italic; color:var(--accent)">
                         Philosophy: Build it. Break it. Fix it.
@@ -183,8 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             case 'social':
                 printLine(`
-                    <div><i class="fab fa-github"></i> GitHub: <a href="https://github.com/TON_PSEUDO" target="_blank" style="color:var(--accent)">github.com/TON_PSEUDO</a></div>
-                    <div><i class="fab fa-linkedin"></i> LinkedIn: <a href="https://linkedin.com/in/TON_PSEUDO" target="_blank" style="color:var(--accent)">linkedin.com/in/TON_PSEUDO</a></div>
+                    <div><i class="fab fa-github"></i> GitHub: <a href="https://github.com/ArthurDeMeyer" target="_blank" style="color:var(--accent)">github.com/ArthurDeMeyer</a></div>
+                    <div><i class="fab fa-linkedin"></i> LinkedIn: <a href="https://www.linkedin.com/in/arthur-de-meyer-/" target="_blank" style="color:var(--accent)">linkedin.com/in/arthur-de-meyer</a></div>
                 `);
                 break;
 
@@ -196,8 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'cv':
                 printLine(`Downloading 'CV_Arthur_De_Meyer_2025.pdf'...`);
                 setTimeout(() => {
-                    // Mets le lien de ton PDF ici
-                    window.open('#', '_blank'); 
+                    window.open('#', '_blank'); // REMPLACER LE # PAR TON LIEN PDF
                     printLine(`<span style="color:#0f0">[DOWNLOAD COMPLETE]</span>`);
                     createInputLine(); 
                 }, 1000);
@@ -249,7 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
         createInputLine();
     }
 
-    // Focus automatique sur l'input du terminal
     document.addEventListener('click', function(e) {
         if (e.target.closest('.terminal-window')) {
             const activeInput = terminalOutput.querySelector('input');
@@ -259,6 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     runBoot();
 });
+
 
 // ==========================================
 // 4. GESTION DES MODALES PROJETS (GLOBAL)
@@ -277,7 +299,40 @@ const projectsData = {
         image: "assets/pfsense-project.jpg",
         techs: ["Pfsense", "Snort IDS", "VLANs", "Wireshark"],
         link: "#"
-    }
+    },
+
+    "sysprep-deploy": {
+        title: "Masterisation & Déploiement Win10",
+        description: `
+            <div style="margin-bottom:10px; color:#ccc;">Procédure de création d'un Master Gold Windows 10 Enterprise LTSC :</div>
+            
+            <ol style="padding-left:20px; color:#aaa; line-height:1.6;">
+                <li style="margin-bottom:10px;">
+                    <strong style="color:#fff;">Préparation du fichier de réponse (WSIM) :</strong><br>
+                    Extraction du fichier <code>install.wim</code> de l'ISO. Import dans <em>Windows System Image Manager</em> pour générer le catalogue (.clg) et configurer le fichier XML (langue fr-FR, création compte admin, skip OOBE).
+                </li>
+                
+                <li style="margin-bottom:10px;">
+                    <strong style="color:#fff;">Installation & Mode Audit :</strong><br>
+                    Installation de l'OS sur VM. Au premier démarrage, passage en <strong>Audit Mode</strong> (<code>CTRL+SHIFT+F3</code>) pour contourner l'assistant de configuration et accéder à la session Administrateur cachée.
+                </li>
+                
+                <li style="margin-bottom:10px;">
+                    <strong style="color:#fff;">Personnalisation du Master :</strong><br>
+                    Installation des logiciels standards (Office, 7Zip...), configuration de l'environnement et nettoyage des fichiers temporaires.
+                </li>
+                
+                <li>
+                    <strong style="color:#fff;">Généralisation & Capture :</strong><br>
+                    Lancement de la commande finale pour supprimer les SID uniques et éteindre la machine :<br>
+                    <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace; white-space: pre-wrap; word-break: break-word;">sysprep /generalize /oobe /shutdown /unattend:unattend.xml</code>
+                </li>
+            </ol>
+        `,
+        image: "assets/sysprep.png.png", // Utilise ton image "sys prep install.PNG" renommée
+        techs: ["Windows 10", "Sysprep", "WSIM", "Audit Mode", "XML"],
+        link: "#"
+    },
 };
 
 const modal = document.getElementById('project-modal');
@@ -309,13 +364,17 @@ function openProject(projectId) {
         `<span class="skill-tag" style="display:inline-block; margin-right:5px; margin-bottom:5px; font-size:0.8rem; color:#fff; border:1px solid #333;">${tech}</span>`
     ).join('');
 
-    modal.classList.add('active');
-    modal.classList.remove('hidden');
+    if(modal) {
+        modal.classList.add('active');
+        modal.classList.remove('hidden');
+    }
 }
 
 function closeModal() {
-    modal.classList.remove('active');
-    setTimeout(() => modal.classList.add('hidden'), 300);
+    if(modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+    }
 }
 
 if (modal) {
@@ -324,25 +383,28 @@ if (modal) {
     });
 }
 
+
 // ==========================================
-// 5. GESTION MODALE SKILLS (GLOBAL) - C'EST ICI LE CORRECTIF
+// 5. GESTION MODALE SKILLS (GLOBAL)
 // ==========================================
 const skillsModal = document.getElementById('skills-modal');
 
 function openSkillsModal() {
-    if(!skillsModal) return;
-    skillsModal.classList.remove('hidden');
-    setTimeout(() => {
-        skillsModal.classList.add('active');
-    }, 10);
+    if(skillsModal) {
+        skillsModal.classList.remove('hidden');
+        setTimeout(() => {
+            skillsModal.classList.add('active');
+        }, 10);
+    }
 }
 
 function closeSkillsModal() {
-    if(!skillsModal) return;
-    skillsModal.classList.remove('active');
-    setTimeout(() => {
-        skillsModal.classList.add('hidden');
-    }, 300);
+    if(skillsModal) {
+        skillsModal.classList.remove('active');
+        setTimeout(() => {
+            skillsModal.classList.add('hidden');
+        }, 300);
+    }
 }
 
 if(skillsModal) {

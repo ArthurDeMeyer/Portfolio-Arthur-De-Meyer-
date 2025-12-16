@@ -1,21 +1,27 @@
 // ==========================================
 // 1. EFFET MATRIX RAIN (SÉCURISÉ)
 // ==========================================
-let matrixCanvas, matrixCtx;
+let matrixCanvas, matrixCtx; // Variables globales pour être accessibles
 
 document.addEventListener('DOMContentLoaded', () => {
+    // On initialise seulement quand la page est prête
     matrixCanvas = document.getElementById('matrix-canvas');
+    
+    // Sécurité : si le canvas n'existe pas, on arrête pour éviter le crash
     if (!matrixCanvas) {
         console.error("Canvas Matrix introuvable");
         return;
     }
 
     matrixCtx = matrixCanvas.getContext('2d');
+    
+    // Lancement
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     setInterval(drawMatrix, 33);
 });
 
+// Variables pour l'animation
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
 const fontSize = 14;
 let columns, drops;
@@ -24,6 +30,8 @@ function resizeCanvas() {
     if (matrixCanvas) {
         matrixCanvas.width = window.innerWidth;
         matrixCanvas.height = window.innerHeight;
+        
+        // Recalcul des colonnes après redimensionnement
         columns = matrixCanvas.width / fontSize;
         drops = Array(Math.floor(columns)).fill(1);
     }
@@ -31,20 +39,24 @@ function resizeCanvas() {
 
 function drawMatrix() {
     if (!matrixCtx || !matrixCanvas) return;
+
     matrixCtx.fillStyle = "rgba(5, 5, 5, 0.05)";
     matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+    
     matrixCtx.fillStyle = "#00ff9d";
     matrixCtx.font = fontSize + "px monospace";
 
     for(let i = 0; i < drops.length; i++) {
         const text = letters.charAt(Math.floor(Math.random() * letters.length));
         matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
         if(drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
             drops[i] = 0;
         }
         drops[i]++;
     }
 }
+
 
 // ==========================================
 // 2. EFFET TYPING TITRE (GLOBAL)
@@ -63,7 +75,7 @@ setTimeout(typeTitle, 500);
 
 
 // ==========================================
-// 3. TERMINAL INTERACTIF (CLI 2.0 - ULTIMATE)
+// 3. TERMINAL INTERACTIF (CLI 2.0)
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -79,25 +91,18 @@ document.addEventListener('DOMContentLoaded', () => {
         soft: ["ITIL v4", "Gestion d'incidents", "Documentation", "Formation utilisateurs", "Anglais Technique"]
     };
 
-    function printLine(htmlContent, type = "normal") {
+    function printLine(htmlContent) {
         const div = document.createElement('div');
         div.innerHTML = htmlContent;
         div.style.marginBottom = "5px";
-        
-        // Petit style pour les erreurs ou succès
-        if (type === "error") div.style.color = "#ff5555";
-        if (type === "success") div.style.color = "#55ff55";
-
         terminalOutput.appendChild(div);
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    // --- NOUVELLE VERSION AVEC AUTO-COMPLÉTION (TAB) ---
     function createInputLine() {
         const container = document.createElement('div');
         container.style.display = 'flex';
         container.style.marginTop = '10px';
-        container.className = 'input-line'; // Ajout d'une classe pour ciblage CSS éventuel
 
         const prompt = document.createElement('span');
         prompt.className = 'prompt';
@@ -109,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         input.type = 'text';
         input.autocomplete = 'off';
         input.autofocus = true;
-        // Styles inline pour forcer l'apparence
         input.style.backgroundColor = 'transparent';
         input.style.border = 'none';
         input.style.color = '#fff';
@@ -117,52 +121,31 @@ document.addEventListener('DOMContentLoaded', () => {
         input.style.flexGrow = '1';
         input.style.outline = 'none';
 
-        // --- GESTION INTELLIGENTE DES TOUCHES ---
         input.addEventListener('keydown', function(e) {
-            
-            // 1. SI ON APPUIE SUR ENTRÉE
             if (e.key === 'Enter') {
                 const command = input.value;
-                // On fige la ligne pour faire joli
                 container.innerHTML = `<span class="prompt">root@portfolio:~$</span> <span style="color:#fff">${command}</span>`;
                 handleCommand(command);
-            }
-
-            // 2. SI ON APPUIE SUR TAB (AUTO-COMPLÉTION)
-            else if (e.key === 'Tab') {
-                e.preventDefault(); // Empêche de sortir du champ
-                const currentText = this.value.toLowerCase();
-                
-                // Liste des commandes que le terminal connait
-                const knownCommands = [
-                    'help', 'about', 'skills', 'projects', 'social', 'contact', 'cv', 'clear',
-                    'open ad-lab', 'open pfsense', 'open sysprep-deploy', // Suggestion des projets
-                    'sudo', 'rm -rf' // Suggestion des easter eggs
-                ];
-
-                // On cherche la première commande qui commence par ce qu'on a tapé
-                const match = knownCommands.find(cmd => cmd.startsWith(currentText));
-                if (match) {
-                    this.value = match; // On remplit le champ
-                }
+                createInputLine();
             }
         });
 
         container.appendChild(prompt);
         container.appendChild(input);
         terminalOutput.appendChild(container);
-        
         input.focus();
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
     async function handleCommand(cmd) {
-        const cleanInput = cmd.trim();
-        const parts = cleanInput.split(' ');
+        // --- 1. NOUVELLE LOGIQUE DE DÉCOUPAGE ---
+        const cleanInput = cmd.trim();       // Enlève les espaces inutiles
+        const parts = cleanInput.split(' '); // Coupe la phrase à chaque espace
         
-        const command = parts[0].toLowerCase();
-        const argument = parts[1];
+        const command = parts[0].toLowerCase(); // Le 1er mot (ex: "open")
+        const argument = parts[1];              // Le 2ème mot (ex: "ad-lab")
         
+        // On switch uniquement sur le premier mot ("command")
         switch(command) {
             case 'help':
                 printLine(`
@@ -217,26 +200,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 printLine("<br>");
                 printLine("Listing des projets documentés...");
                 printLine("---------------------------------");
+                
+                // Liste des projets
                 printLine("<span style='color: var(--accent);'>ad-lab</span>           : Infrastructure Active Directory (Win Server 2022)");
                 printLine("<span style='color: var(--accent);'>pfsense</span>          : Network Security & Firewalling (Snort/VLANs)");
                 printLine("<span style='color: var(--accent);'>sysprep-deploy</span>   : Masterisation & Déploiement Win10");
+                
                 printLine("<br>");
                 printLine("Usage : Tapez <span style='color: #fff;'>open [nom-du-projet]</span> pour ouvrir le dossier.");
                 printLine("Exemple : <span style='color: #888;'>open sysprep-deploy</span>");
+                
                 createInputLine();
-                return;
+                return; // Return stoppe la fonction ici, pas besoin de break
 
+            // --- 2. LE fameux CASE OPEN ---
             case 'open':
                 if (!argument) {
+                    // Si on tape juste "open" sans rien derrière
                     printLine("Erreur : Quel projet voulez-vous ouvrir ?", "error");
                     printLine("Usage : <span style='color:#fff'>open [nom-du-projet]</span>");
                     printLine("Exemple : open ad-lab");
                 } 
                 else if (projectsData[argument]) {
+                    // Si le projet existe dans la liste
                     printLine(`Ouverture du projet : <span style='color:var(--accent)'>${projectsData[argument].title}</span>...`);
                     openProject(argument);
                 } 
                 else {
+                    // Si le projet n'existe pas
                     printLine(`Erreur : Le projet '${argument}' est introuvable.`, "error");
                     printLine("Tapez <span style='color:var(--accent)'>projects</span> pour voir la liste.");
                 }
@@ -258,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'cv':
                 printLine(`Downloading 'cv.pdf'...`);
                 setTimeout(() => {
+                    // J'ai mis 'cv.pdf' en minuscule pour éviter les erreurs
                     window.open('cv.pdf', '_blank'); 
                     printLine(`<span style="color:#0f0">[DOWNLOAD COMPLETE]</span>`);
                     createInputLine(); 
@@ -283,26 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'clear':
             case 'cls':
                 terminalOutput.innerHTML = "";
-                createInputLine(); // Relance une ligne propre
-                return; 
-
-            // --- EASTER EGG 1 : SUDO ---
-            case 'sudo':
-                printLine(`<span style="color:red">PERMISSION DENIED:</span> You are not in the sudoers file. This incident will be reported.`, "error");
-                break;
-
-            // --- EASTER EGG 2 : AUTODESTRUCTION ---
-            case 'rm': // Juste au cas où
-            case 'rm -rf':
-            case 'rm -rf /':
-                printLine(`⚠️ <span style="color:red">CRITICAL ALERT:</span> System deletion sequence initiated...`);
-                setTimeout(() => { printLine("Deleting System32...", "error"); }, 600);
-                setTimeout(() => { printLine("Formatting C: Drive...", "error"); }, 1400);
-                setTimeout(() => { printLine("Deleting user profile...", "error"); }, 2400);
-                setTimeout(() => { 
-                    printLine("Just kidding! 😉 Don't try this on prod servers.", "success"); 
-                    createInputLine(); 
-                }, 3500);
                 return; 
             
             case '':
@@ -311,9 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
             default:
                 printLine(`<span style="color:red">Command not found: ${command}</span>. Type 'help' for list.`);
         }
-        createInputLine();
     }
-
     async function runBoot() {
         terminalOutput.innerHTML = ''; 
         const bootTexts = [
@@ -331,7 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
         createInputLine();
     }
 
-    // Gestion du focus quand on clique n'importe où dans le terminal
     document.addEventListener('click', function(e) {
         if (e.target.closest('.terminal-window')) {
             const activeInput = terminalOutput.querySelector('input');
@@ -351,74 +320,100 @@ const projectsData = {
         title: "Infrastructure Active Directory",
         description: `
             <div style="margin-bottom:10px; color:#ccc;">Déploiement d'un Contrôleur de Domaine Windows Server 2022 :</div>
+            
             <ol style="padding-left:20px; color:#aaa; line-height:1.6;">
                 <li style="margin-bottom:10px;">
                     <strong style="color:#fff;">Installation & Réseau :</strong><br>
-                    Configuration IP statique et DNS Loopback. Installation du rôle <em>AD DS</em> (Domain Services).
+                    Configuration IP statique et DNS Loopback. Installation du rôle <em>AD DS</em> (Domain Services) via le Gestionnaire de serveur.
                 </li>
+                
                 <li style="margin-bottom:10px;">
                     <strong style="color:#fff;">Promotion (Dcpromo) :</strong><br>
-                    Création d'une nouvelle forêt. Configuration DSRM et validation NTDS/SYSVOL.
+                    Création d'une nouvelle forêt. Configuration du mode de restauration (DSRM) et validation des chemins de base de données (NTDS.dit) et des logs.
                 </li>
+                
+                <li style="margin-bottom:10px;">
+                    <strong style="color:#fff;">Organisation (OU) & GPO :</strong><br>
+                    Structuration hiérarchique (Services/Utilisateurs/Ordinateurs). Création de GPO pour durcir la sécurité (Verrouillage compte, MDP complexe).
+                </li>
+                
                 <li>
-                    <strong style="color:#fff;">Organisation & GPO :</strong><br>
-                    Structuration OUs (Services/Users) et application de GPO de sécurité.
+                    <strong style="color:#fff;">Intégration Client :</strong><br>
+                    Jonction de postes Windows 10/11 au domaine et vérification de l'application des stratégies de groupe.
                 </li>
             </ol>
-            <div style="margin-top:15px; font-size:0.85rem; color:#888;">Commande (PowerShell) :</div>
-            <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace;">Install-ADDSForest -DomainName "corp.local" -InstallDns</code>
+
+            <div style="margin-top:15px; font-size:0.85rem; color:#888;">Commande de déploiement (PowerShell) :</div>
+            <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace; white-space: pre-wrap; word-break: break-word;">Install-ADDSForest -DomainName "corp.local" -InstallDns</code>
         `,
-        image: "assets/ad-project.png", 
+        image: "assets/ad-project.png", // Vérifie que tu as bien cette image (ou change le nom)
         techs: ["Windows Server 2022", "AD DS", "DNS", "GPO", "PowerShell"],
         link: "#"
     },
     "pfsense": {
         title: "Sécurité Périmétrique & Firewalling",
         description: `
-            <div style="margin-bottom:10px; color:#ccc;">Sécurisation réseau via Pfsense :</div>
+            <div style="margin-bottom:10px; color:#ccc;">Sécurisation d'un réseau d'entreprise via Pfsense (Appliance virtuelle) :</div>
+            
             <ol style="padding-left:20px; color:#aaa; line-height:1.6;">
                 <li style="margin-bottom:10px;">
-                    <strong style="color:#fff;">Segmentation (VLANs) :</strong><br>
-                    Isolation des flux : Admin (10), Users (20), IoT (99).
+                    <strong style="color:#fff;">Segmentation Réseau (VLANs) :</strong><br>
+                    Création d'interfaces virtuelles pour isoler les flux : VLAN 10 (Admin), VLAN 20 (Utilisateurs) et VLAN 99 (IoT/Invités). Configuration du Trunk vers le switch.
                 </li>
+                
                 <li style="margin-bottom:10px;">
-                    <strong style="color:#fff;">Filtrage Strict :</strong><br>
-                    Politique "DENY ALL" par défaut. Autorisation des flux DNS/HTTPS uniquement.
+                    <strong style="color:#fff;">Politique de Filtrage :</strong><br>
+                    Application du principe de <em>Moindre Privilège</em>. Règle "DENY ALL" par défaut. Autorisation stricte des flux nécessaires (DNS, HTTPS) et blocage du trafic inter-VLAN.
                 </li>
+                
+                <li style="margin-bottom:10px;">
+                    <strong style="color:#fff;">Services (DHCP & DNS) :</strong><br>
+                    Configuration des étendues DHCP par interface. Mise en place du DNS Resolver (Unbound) pour le filtrage de domaines malveillants (DNS Sinkhole).
+                </li>
+                
                 <li>
-                    <strong style="color:#fff;">Inspection (IDS) :</strong><br>
-                    Mise en place de Snort pour la détection d'intrusion sur le WAN.
+                    <strong style="color:#fff;">Inspection (IDS/IPS) :</strong><br>
+                    Installation et configuration de <strong>Snort</strong>. Mise en place de règles de détection d'intrusion (Community Rules) sur l'interface WAN.
                 </li>
             </ol>
-            <div style="margin-top:15px; font-size:0.85rem; color:#888;">Audit (Shell) :</div>
-            <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace;">pfctl -sr | grep "block drop in on ! wan"</code>
+
+            <div style="margin-top:15px; font-size:0.85rem; color:#888;">Vérification des règles (Shell FreeBSD) :</div>
+            <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace; white-space: pre-wrap; word-break: break-word;">pfctl -sr | grep "block drop in on ! wan"</code>
         `,
-        image: "assets/pfsense-project.png",
+        image: "assets/pfsense-project.png", // Vérifie bien le nom de ton image
         techs: ["Pfsense", "VLANs", "Snort IDS", "Firewalling", "Pfctl"],
         link: "#"
     },
+
     "sysprep-deploy": {
         title: "Masterisation & Déploiement Win10",
         description: `
-            <div style="margin-bottom:10px; color:#ccc;">Création d'un Master Gold Windows 10 LTSC :</div>
+            <div style="margin-bottom:10px; color:#ccc;">Procédure de création d'un Master Gold Windows 10 Enterprise LTSC :</div>
+            
             <ol style="padding-left:20px; color:#aaa; line-height:1.6;">
                 <li style="margin-bottom:10px;">
-                    <strong style="color:#fff;">Fichier de réponse (WSIM) :</strong><br>
-                    Configuration du fichier XML (Skip OOBE, Création Admin) via le catalogue .clg.
+                    <strong style="color:#fff;">Préparation du fichier de réponse (WSIM) :</strong><br>
+                    Extraction du fichier <code>install.wim</code> de l'ISO. Import dans <em>Windows System Image Manager</em> pour générer le catalogue (.clg) et configurer le fichier XML (langue fr-FR, création compte admin, skip OOBE).
                 </li>
+                
                 <li style="margin-bottom:10px;">
-                    <strong style="color:#fff;">Mode Audit :</strong><br>
-                    Installation des softs (Office, 7Zip) en mode Administrateur caché (CTRL+SHIFT+F3).
+                    <strong style="color:#fff;">Installation & Mode Audit :</strong><br>
+                    Installation de l'OS sur VM. Au premier démarrage, passage en <strong>Audit Mode</strong> (<code>CTRL+SHIFT+F3</code>) pour contourner l'assistant de configuration et accéder à la session Administrateur cachée.
                 </li>
+                
+                <li style="margin-bottom:10px;">
+                    <strong style="color:#fff;">Personnalisation du Master :</strong><br>
+                    Installation des logiciels standards (Office, 7Zip...), configuration de l'environnement et nettoyage des fichiers temporaires.
+                </li>
+                
                 <li>
-                    <strong style="color:#fff;">Généralisation :</strong><br>
-                    Suppression des SID et extinction pour capture de l'image.
+                    <strong style="color:#fff;">Généralisation & Capture :</strong><br>
+                    Lancement de la commande finale pour supprimer les SID uniques et éteindre la machine :<br>
+                    <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace; white-space: pre-wrap; word-break: break-word;">sysprep /generalize /oobe /shutdown /unattend:unattend.xml</code>
                 </li>
             </ol>
-            <div style="margin-top:15px; font-size:0.85rem; color:#888;">Sysprep Command :</div>
-            <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace;">sysprep /generalize /oobe /shutdown /unattend:unattend.xml</code>
         `,
-        image: "assets/sysprep.png", // J'ai corrigé le .png.png ici !
+        image: "assets/sysprep.png.png", // Utilise ton image "sys prep install.PNG" renommée
         techs: ["Windows 10", "Sysprep", "WSIM", "Audit Mode", "XML"],
         link: "#"
     },

@@ -517,6 +517,16 @@ footer {
     color: #000;
 }
 
+/* =========================================
+   MODIFICATION TEMPORAIRE : CACHER BOUTONS GITHUB
+   ========================================= */
+/* On cible le premier bouton (.btn:first-child) 
+   à l'intérieur du bloc .links des cartes projets.
+*/
+.project-card .links .btn:first-child {
+    display: none !important;
+}
+
 /* Mobile : Centrer le bas */
 @media (max-width: 768px) {
     .footer-bottom {

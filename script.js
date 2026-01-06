@@ -256,9 +256,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             
             case 'cv':
-                printLine(`Downloading 'cv.pdf'...`);
+                printLine(`Downloading 'Cv.pdf'...`);
                 setTimeout(() => {
-                    window.open('cv.pdf', '_blank'); 
+                    window.open('Cv.pdf', '_blank'); 
                     printLine(`<span style="color:#0f0">[DOWNLOAD COMPLETE]</span>`);
                     createInputLine(); 
                 }, 1000);

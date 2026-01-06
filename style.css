@@ -518,12 +518,9 @@ footer {
 }
 
 /* =========================================
-   MODIFICATION TEMPORAIRE : CACHER BOUTONS GITHUB
+   A SUPPRIMER PLUS TARD : Cache le bouton GitHub
    ========================================= */
-/* On cible le premier bouton (.btn:first-child) 
-   à l'intérieur du bloc .links des cartes projets.
-*/
-.project-card .links .btn:first-child {
+#modal-link {
     display: none !important;
 }
 

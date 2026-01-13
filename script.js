@@ -220,9 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 printLine("<span style='color: var(--accent);'>ad-lab</span>           : Infrastructure Active Directory (Win Server 2022)");
                 printLine("<span style='color: var(--accent);'>pfsense</span>          : Network Security & Firewalling (Snort/VLANs)");
                 printLine("<span style='color: var(--accent);'>sysprep-deploy</span>   : Masterisation & Déploiement Win10");
+                printLine("<span style='color: var(--accent);'>sys-repair</span>       : Toolkit Support & Monitoring (PowerShell GUI)");
                 printLine("<br>");
                 printLine("Usage : Tapez <span style='color: #fff;'>open [nom-du-projet]</span> pour ouvrir le dossier.");
-                printLine("Exemple : <span style='color: #888;'>open sysprep-deploy</span>");
                 createInputLine();
                 return;
 
@@ -422,6 +422,83 @@ const projectsData = {
         techs: ["Windows 10", "Sysprep", "WSIM", "Audit Mode", "XML"],
         link: "#"
     },
+    "sys-repair": {
+        title: "Sys-Repair Toolkit (GUI)",
+        description: `
+            <div style="margin-bottom:10px; color:#ccc;">
+                Création d'un couteau suisse numérique pour centraliser les outils dispersés de Windows (TaskMgr, Services, IPConfig) dans une interface ergonomique pour accélérer le diagnostic.
+            </div>
+            
+            <h4 style="color:#fff; margin-top:15px; border-bottom:1px solid #333;">⚙️ Fonctionnalités Backend</h4>
+            <ul style="padding-left:20px; color:#aaa; line-height:1.6; list-style:none;">
+                <li style="margin-bottom:8px;">
+                    <span style="color:var(--accent)">></span> <strong>Live Monitoring :</strong> Timer asynchrone (1.5s) pour afficher CPU/RAM sans figer l'UI.
+                </li>
+                <li style="margin-bottom:8px;">
+                    <span style="color:var(--accent)">></span> <strong>Audit Intelligent :</strong> Algorithme filtrant uniquement les services critiques (StartType=Automatic) qui sont à l'arrêt.
+                </li>
+                <li style="margin-bottom:8px;">
+                    <span style="color:var(--accent)">></span> <strong>Smart Repair :</strong> Flush DNS (Cache RAM vs Hosts) et Reset de l'Explorer.exe.
+                </li>
+            </ul>
+
+            <h4 style="color:#fff; margin-top:15px; border-bottom:1px solid #333;">🛡️ Défis & Sécurité</h4>
+            <p style="color:#aaa; font-size:0.9rem; margin-top:5px;">
+                Le script a été flaggé par <strong>Windows Defender</strong> (Faux Positif) car il scanne les ports et touche aux processus. 
+                <br><em>Solution :</em> Gestion des exclusions et apprentissage du <strong>Code Signing</strong> pour les outils pro.
+            </p>
+
+            <div style="margin-top:15px; font-size:0.85rem; color:#888;">Snippet (Logique Flush DNS) :</div>
+            <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace;">
+            If ($ClearCache) { Clear-DnsClientCache -ErrorAction SilentlyContinue }
+            Write-Log "DNS Cache Flushed successfully." -Color Green
+            </code>
+        `,
+        image: "image/sys-repair.jpg", // Assure-toi d'avoir mis l'image !
+        techs: ["PowerShell 5.1", "Windows Forms", ".NET Framework", "Admin Sys", "Security"],
+        link: "#" // Mets le lien GitHub ici si tu l'as
+    },
+    "cisco-infra": {
+        title: "Infrastructure Cisco (Siège/Agence)",
+        description: `
+            <div style="margin-bottom:10px; color:#ccc;">
+                <strong>Architecture V4.0 :</strong> Interconnexion d'un Siège et d'une Agence via une liaison WAN simulée.
+                <br>Statut : <span style="color:#0f0">Opérationnel 🟢</span>
+            </div>
+
+            <h4 style="color:#fff; margin-top:15px; border-bottom:1px solid #333;">📡 Topologie & Adressage</h4>
+            <ul style="padding-left:20px; color:#aaa; line-height:1.6; list-style:none;">
+                <li style="margin-bottom:8px;">
+                    <span style="color:var(--accent)">></span> <strong>Zone Siège (Lille) :</strong> Segmentation par VLANs (Clients V10 / Serveurs V20) avec routage <em>Router-on-a-Stick</em> (Sous-interfaces G0/0.10).
+                </li>
+                <li style="margin-bottom:8px;">
+                    <span style="color:var(--accent)">></span> <strong>Zone Agence (Paris) :</strong> Site distant connecté via lien WAN Fibre (10.0.0.0/30). Clients distants (Réseau 30).
+                </li>
+                <li style="margin-bottom:8px;">
+                    <span style="color:var(--accent)">></span> <strong>Services Centralisés :</strong> Serveur DNS & DHCP Master (192.168.20.20) gérant les baux IP des deux sites via le WAN.
+                </li>
+            </ul>
+
+            <h4 style="color:#fff; margin-top:15px; border-bottom:1px solid #333;">⚙️ Configuration Clé (Cisco IOS)</h4>
+            <p style="color:#aaa; font-size:0.9rem; margin-top:5px;">
+                Mise en place du <strong>DHCP Relay</strong> (Helper Address) sur le routeur de l'agence pour permettre aux clients distants de récupérer une IP depuis le serveur central du siège.
+            </p>
+
+            <div style="margin-top:15px; font-size:0.85rem; color:#888;">Snippet (Configuration Routeur Paris) :</div>
+            <code style="display:block; background:#222; padding:10px; margin-top:5px; margin-bottom:25px; border-radius:4px; color:#0f0; font-family:'Fira Code', monospace;">
+            interface GigabitEthernet0/0
+            description LAN_AGENCE
+            ip address 192.168.30.254 255.255.255.0
+            ip helper-address 192.168.20.20
+            no shutdown
+            !
+            ip route 192.168.0.0 255.255.0.0 10.0.0.1
+            </code>
+        `,
+        image: "assets/infra-cisco.png", // Pense à mettre ton image Packet Tracer !
+        techs: ["Cisco Packet Tracer", "IOS CLI", "VLANs (802.1Q)", "Routage Statique", "DHCP Relay"],
+        link: "#" // Mets le lien de ton fichier .pkt si tu l'as
+    }
 };
 
 const modal = document.getElementById('project-modal');

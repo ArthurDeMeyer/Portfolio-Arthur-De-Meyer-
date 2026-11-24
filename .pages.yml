@@ -100,7 +100,7 @@ content:
               - { name: items, label: Points, type: text, list: true, description: "**Titre** : description" }
           - { name: note, label: Encadré (facultatif), type: text }
           - { name: codeLabel, label: Légende du code, type: string }
-          - { name: code, label: Extrait de code, type: code }
+          - { name: code, label: Extrait de code, type: text, description: "Commande ou config affichée dans le bloc de code (une instruction par ligne)" }
           - { name: link, label: Lien GitHub du projet (facultatif), type: string }
 
       # ---------------- Expérience ----------------

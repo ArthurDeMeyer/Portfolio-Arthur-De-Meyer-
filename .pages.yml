@@ -1,0 +1,138 @@
+# Configuration Pages CMS (https://pagescms.org)
+# Permet de modifier content.json et d'envoyer des images
+# depuis une interface web, sans toucher au code.
+
+media:
+  input: assets
+  output: assets
+
+content:
+  - name: portfolio
+    label: Portfolio
+    type: file
+    path: content.json
+    fields:
+      # ---------------- Infos générales ----------------
+      - name: site
+        label: Infos générales
+        type: object
+        fields:
+          - { name: name, label: Nom, type: string }
+          - { name: role, label: Rôle (pied de page), type: string }
+          - { name: headline, label: Grand titre de l'accueil, type: string, description: "Court : une ligne de ce que tu fais" }
+          - { name: intro, label: Texte sous le titre, type: text }
+          - { name: status, label: Statut (à côté de la LED verte), type: string, description: "Ex. En poste chez XEFI Lille Nord" }
+          - { name: location, label: Localisation, type: string }
+          - { name: email, label: Email, type: string }
+          - { name: linkedin, label: Lien LinkedIn, type: string }
+          - { name: github, label: Lien GitHub, type: string }
+          - { name: cv, label: CV (PDF), type: file, description: "Envoie un nouveau PDF pour remplacer le CV" }
+
+      # ---------------- Profil ----------------
+      - name: about
+        label: Profil
+        type: object
+        fields:
+          - { name: paragraphs, label: Paragraphes, type: text, list: true, description: "**texte** pour mettre en gras" }
+          - { name: motto, label: Devise, type: string }
+          - name: roadmap
+            label: Plan de carrière (traceroute)
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Étape, type: string }
+              - { name: period, label: Période, type: string, description: "Ex. 2026 — 2028" }
+              - { name: text, label: Description, type: text }
+              - name: status
+                label: État
+                type: select
+                options:
+                  values:
+                    - { value: done, label: Atteint }
+                    - { value: current, label: En cours (LED verte) }
+                    - { value: next, label: À venir }
+
+      # ---------------- Compétences ----------------
+      - name: skills
+        label: Compétences
+        type: object
+        fields:
+          - { name: featured, label: Compétences mises en avant, type: string, list: true }
+          - name: categories
+            label: Catégories
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Nom, type: string }
+              - name: icon
+                label: Icône
+                type: select
+                options:
+                  values:
+                    - { value: server, label: Serveur }
+                    - { value: shield, label: Bouclier }
+                    - { value: network, label: Réseau }
+                    - { value: wrench, label: Clé à molette }
+                    - { value: terminal, label: Terminal }
+              - { name: items, label: Compétences, type: string, list: true }
+
+      # ---------------- Projets ----------------
+      - name: projects
+        label: Projets
+        type: object
+        list: true
+        description: "Le premier projet de la liste est affiché en grand"
+        fields:
+          - { name: id, label: Identifiant, type: string, description: "Sans espace ni accent, ex. ad-lab. Sert à la commande open du terminal" }
+          - { name: title, label: Titre, type: string }
+          - { name: summary, label: Résumé (carte), type: text }
+          - { name: image, label: Capture d'écran, type: image }
+          - { name: techs, label: Technologies, type: string, list: true }
+          - { name: intro, label: Introduction (fenêtre détail), type: text }
+          - name: sections
+            label: Sections
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Titre de section, type: string }
+              - { name: items, label: Points, type: text, list: true, description: "**Titre** : description" }
+          - { name: note, label: Encadré (facultatif), type: text }
+          - { name: codeLabel, label: Légende du code, type: string }
+          - { name: code, label: Extrait de code, type: code }
+          - { name: link, label: Lien GitHub du projet (facultatif), type: string }
+
+      # ---------------- Expérience ----------------
+      - name: experience
+        label: Expérience professionnelle
+        type: object
+        list: true
+        description: "Du plus récent au plus ancien"
+        fields:
+          - { name: title, label: Poste, type: string }
+          - { name: company, label: Entreprise, type: string }
+          - { name: place, label: Lieu ou client, type: string }
+          - { name: period, label: Période, type: string }
+          - { name: current, label: Poste actuel (LED verte), type: boolean }
+          - { name: summary, label: Résumé, type: text }
+          - { name: missions, label: Missions, type: text, list: true, description: "**Titre** : description" }
+          - { name: tags, label: Mots-clés, type: string, list: true }
+
+      # ---------------- Formation ----------------
+      - name: education
+        label: Formation
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Diplôme, type: string }
+          - { name: school, label: École, type: string }
+          - { name: period, label: Période, type: string }
+          - name: status
+            label: État
+            type: select
+            options:
+              values:
+                - { value: done, label: Terminé }
+                - { value: current, label: En cours (LED verte) }
+                - { value: next, label: Objectif }
+          - { name: text, label: Description, type: text }
+          - { name: note, label: Mention (facultatif), type: string, description: "Ex. Validé avec les félicitations du jury" }

@@ -1,0 +1,322 @@
+{
+  "site": {
+    "name": "Arthur De Meyer",
+    "role": "Administrateur systèmes & réseaux en alternance",
+    "headline": "Administrateur systèmes & réseaux, cap sur la cybersécurité",
+    "intro": "Alternant chez XEFI Lille Nord en Bac+4. Je gère des parcs clients en infogérance : Active Directory, Microsoft 365, réseau, déploiement de postes et automatisation PowerShell.",
+    "status": "En poste chez XEFI Lille Nord",
+    "location": "Lille, France",
+    "email": "demeyer.arthur@outlook.fr",
+    "linkedin": "https://www.linkedin.com/in/arthur-de-meyer-/",
+    "github": "https://github.com/ArthurDeMeyer",
+    "cv": "Cv.pdf"
+  },
+  "about": {
+    "paragraphs": [
+      "Avant de sécuriser un système, il faut savoir comment il fonctionne et comment il casse. C'est pour ça que je mise sur le terrain avant la spécialisation.",
+      "J'ai quitté l'école à 16 ans et je me suis reconstruit par l'informatique : deux formations de développeur, puis une réorientation vers l'infrastructure, le réseau et le système. Aujourd'hui j'administre des parcs clients chez XEFI, et chaque année de terrain sert la suivante."
+    ],
+    "motto": "Build it. Break it. Fix it.",
+    "roadmap": [
+      {
+        "title": "Technicien support & systèmes",
+        "period": "2024 — 2026",
+        "text": "Support N1/N2, proximité, déploiement de postes. Les fondamentaux, sur le terrain.",
+        "status": "done"
+      },
+      {
+        "title": "Administrateur systèmes & réseaux",
+        "period": "2026 — 2028",
+        "text": "Infogérance chez XEFI : serveurs, réseau, Microsoft 365 et automatisation.",
+        "status": "current"
+      },
+      {
+        "title": "Expert en sécurité digitale",
+        "period": "2028 — 2029",
+        "text": "Les compétences défensives, appliquées à une architecture que je maîtrise.",
+        "status": "next"
+      }
+    ]
+  },
+  "skills": {
+    "featured": [
+      "Windows Server & AD DS",
+      "Microsoft 365 & Entra ID",
+      "Intune",
+      "Linux (Debian, Red Hat)",
+      "VMware & Proxmox",
+      "pfSense",
+      "TCP/IP & VLAN",
+      "PowerShell & Bash"
+    ],
+    "categories": [
+      {
+        "name": "Infrastructure & cloud",
+        "icon": "server",
+        "items": [
+          "Windows Server 2019/2022",
+          "Active Directory (GPO, DNS, DHCP)",
+          "Microsoft 365 & Exchange Online",
+          "Microsoft Entra ID",
+          "MDM Microsoft Intune",
+          "Virtualisation (VMware ESXi, Proxmox)",
+          "Déploiement d'images (MDT, WDS)",
+          "Sauvegarde & restauration"
+        ]
+      },
+      {
+        "name": "Réseau & cyber",
+        "icon": "shield",
+        "items": [
+          "Modèle OSI & TCP/IP",
+          "Firewalling (pfSense, règles, NAT)",
+          "Supervision (Centreon)",
+          "Câblage, brassage & switchs",
+          "Analyse de paquets (Wireshark)",
+          "Sécurisation des accès (MFA, ACL)",
+          "Durcissement système"
+        ]
+      },
+      {
+        "name": "Support & outils",
+        "icon": "wrench",
+        "items": [
+          "Support N1/N2 & troubleshooting",
+          "RMM & ticketing (Atera, ServiceNow, GLPI)",
+          "Méthodologie ITIL",
+          "Rédaction de procédures techniques",
+          "Maintenance hardware (PC, serveurs)",
+          "Accompagnement utilisateurs",
+          "Gestion de parc"
+        ]
+      },
+      {
+        "name": "Scripting & web",
+        "icon": "terminal",
+        "items": [
+          "PowerShell (automatisation)",
+          "Bash (scripting Linux)",
+          "SQL",
+          "HTML & CSS",
+          "Git & GitHub"
+        ]
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "ad-lab",
+      "title": "Infrastructure Active Directory",
+      "summary": "Déploiement complet d'un contrôleur de domaine : configuration IP, promotion et organisation des OU.",
+      "image": "assets/ad-project.png",
+      "techs": ["Windows Server 2022", "AD DS", "DNS", "GPO", "PowerShell"],
+      "intro": "Déploiement d'un contrôleur de domaine Windows Server 2022.",
+      "sections": [
+        {
+          "title": "Étapes",
+          "items": [
+            "**Installation et réseau** : IP statique et DNS en loopback, installation du rôle AD DS",
+            "**Promotion** : création d'une nouvelle forêt, configuration DSRM, validation de NTDS et SYSVOL",
+            "**Organisation et GPO** : structure d'OU par services et utilisateurs, GPO de sécurité"
+          ]
+        }
+      ],
+      "note": "",
+      "codeLabel": "PowerShell",
+      "code": "Install-ADDSForest -DomainName \"corp.local\" -InstallDns",
+      "link": ""
+    },
+    {
+      "id": "pfsense",
+      "title": "Sécurité périmétrique avec pfSense",
+      "summary": "Segmentation en VLAN, filtrage strict par défaut et détection d'intrusion sur le WAN.",
+      "image": "assets/pfsense-project.png",
+      "techs": ["pfSense", "VLAN", "Snort", "Firewalling", "pfctl"],
+      "intro": "Sécurisation d'un réseau avec pfSense.",
+      "sections": [
+        {
+          "title": "Étapes",
+          "items": [
+            "**Segmentation** : isolation des flux Admin (VLAN 10), Users (VLAN 20) et IoT (VLAN 99)",
+            "**Filtrage** : politique deny all par défaut, seuls DNS et HTTPS sont autorisés",
+            "**Inspection** : Snort en IDS pour détecter les intrusions sur le WAN"
+          ]
+        }
+      ],
+      "note": "",
+      "codeLabel": "Audit (shell)",
+      "code": "pfctl -sr | grep \"block drop in on ! wan\"",
+      "link": ""
+    },
+    {
+      "id": "sysprep-deploy",
+      "title": "Masterisation Windows 10",
+      "summary": "Création d'une image master : fichier de réponse, mode audit, généralisation et capture.",
+      "image": "assets/sysprep.png",
+      "techs": ["Windows 10 LTSC", "Sysprep", "WSIM", "Mode audit", "XML"],
+      "intro": "Création d'un master Windows 10 LTSC prêt à déployer.",
+      "sections": [
+        {
+          "title": "Étapes",
+          "items": [
+            "**Fichier de réponse (WSIM)** : XML généré depuis le catalogue .clg, OOBE sautée et compte admin créé",
+            "**Mode audit** : installation des logiciels (Office, 7-Zip) depuis l'administrateur caché, Ctrl+Maj+F3",
+            "**Généralisation** : suppression des SID et extinction pour capturer l'image"
+          ]
+        }
+      ],
+      "note": "",
+      "codeLabel": "Sysprep",
+      "code": "sysprep /generalize /oobe /shutdown /unattend:unattend.xml",
+      "link": ""
+    },
+    {
+      "id": "sys-repair",
+      "title": "Sys-Repair Toolkit",
+      "summary": "Application de bureau pour le support N1 : monitoring en temps réel et réparations courantes en un clic.",
+      "image": "assets/sys-repair.jpg",
+      "techs": ["PowerShell 5.1", "Windows Forms", ".NET Framework"],
+      "intro": "Un outil qui regroupe ce qui est éparpillé dans Windows (gestionnaire des tâches, services, ipconfig) dans une seule interface, pour diagnostiquer plus vite.",
+      "sections": [
+        {
+          "title": "Fonctionnalités",
+          "items": [
+            "**Monitoring** : timer asynchrone toutes les 1,5 s pour afficher CPU et RAM sans figer l'interface",
+            "**Audit des services** : ne remonte que les services critiques en démarrage automatique qui sont arrêtés",
+            "**Réparations** : vidage du cache DNS et redémarrage d'explorer.exe"
+          ]
+        },
+        {
+          "title": "Défis et sécurité",
+          "items": [
+            "Le script a été signalé par Windows Defender (faux positif) parce qu'il scanne des ports et touche aux processus. Solution : gestion des exclusions et apprentissage de la signature de code pour les outils pro"
+          ]
+        }
+      ],
+      "note": "",
+      "codeLabel": "Logique du vidage DNS",
+      "code": "If ($ClearCache) { Clear-DnsClientCache -ErrorAction SilentlyContinue }\nWrite-Log \"DNS Cache Flushed successfully.\" -Color Green",
+      "link": ""
+    },
+    {
+      "id": "cisco-infra",
+      "title": "Infrastructure Cisco multi-sites",
+      "summary": "Interconnexion d'un siège à Lille et d'une agence à Paris : routage inter-VLAN, lien WAN et relais DHCP centralisé.",
+      "image": "assets/infra-cisco.png",
+      "techs": ["Packet Tracer", "Cisco IOS", "802.1Q", "Routage statique", "DHCP Relay"],
+      "intro": "Architecture v4 : un siège et une agence reliés par un lien WAN simulé, opérationnelle de bout en bout.",
+      "sections": [
+        {
+          "title": "Topologie et adressage",
+          "items": [
+            "**Siège (Lille)** : VLAN clients (10) et serveurs (20), routage router-on-a-stick sur les sous-interfaces G0/0.10",
+            "**Agence (Paris)** : site distant relié par un lien WAN fibre en 10.0.0.0/30, clients sur le réseau 30",
+            "**Services centralisés** : serveur DNS et DHCP (192.168.20.20) qui distribue les baux des deux sites à travers le WAN"
+          ]
+        }
+      ],
+      "note": "Clé de voûte : le relais DHCP (helper address) sur le routeur de l'agence, pour que les clients distants obtiennent une IP du serveur central.",
+      "codeLabel": "Routeur de Paris",
+      "code": "interface GigabitEthernet0/0\n description LAN_AGENCE\n ip address 192.168.30.254 255.255.255.0\n ip helper-address 192.168.20.20\n no shutdown\n!\nip route 192.168.0.0 255.255.0.0 10.0.0.1",
+      "link": ""
+    }
+  ],
+  "experience": [
+    {
+      "title": "Administrateur systèmes & réseaux (alternance)",
+      "company": "XEFI Lille Nord",
+      "place": "Wambrechies",
+      "period": "Août 2026 — aujourd'hui",
+      "current": true,
+      "summary": "Alternance Bac+4 dans une agence d'infogérance : je gère les parcs des entreprises clientes, sur site et à distance.",
+      "missions": [
+        "**Infogérance multi-clients** : support de proximité et à distance, interventions sur site",
+        "**Supervision et ticketing** : suivi des parcs et des demandes dans Atera",
+        "**Automatisation** : scripts PowerShell pour industrialiser les tâches récurrentes",
+        "**Projet d'infrastructure** : installation complète de l'infrastructure d'un magasin client"
+      ],
+      "tags": ["Active Directory", "Microsoft 365", "Atera", "PowerShell", "Réseau", "Infogérance"]
+    },
+    {
+      "title": "Technicien systèmes & réseaux de proximité (alternance)",
+      "company": "Econocom",
+      "place": "Client Rabot Dutilleul",
+      "period": "Septembre 2025 — Août 2026",
+      "current": false,
+      "summary": "Alternance du titre Technicien supérieur systèmes & réseaux (Bac+2).",
+      "missions": [
+        "**Support utilisateurs et VIP** : diagnostic matériel et logiciel, prise en main à distance, interventions de proximité dans le respect des SLA",
+        "**Gestion des identités** : comptes, droits et groupes de sécurité dans Active Directory et Entra ID",
+        "**Microsoft 365** : licences, Teams, SharePoint, OneDrive et boîtes Exchange, gestion des postes avec Intune",
+        "**Cycle de vie des postes** : masterisation, déploiement, gestion de parc et des stocks",
+        "**Sécurité du poste** : patch management, vérification du chiffrement BitLocker et des agents EDR",
+        "**Réseau et supervision** : brassage, dépannage LAN/WLAN, VPN, supervision Centreon et migrations Wi-Fi"
+      ],
+      "tags": ["Active Directory", "Entra ID", "Microsoft 365", "Intune", "Centreon", "Déploiement"]
+    },
+    {
+      "title": "Technicien support N1 (alternance)",
+      "company": "Helpline",
+      "place": "Client McDonald's",
+      "period": "Septembre 2024 — Septembre 2025",
+      "current": false,
+      "summary": "Helpdesk pour les restaurants McDonald's : incidents en environnement critique et à fort volume, en ITIL.",
+      "missions": [
+        "**Incidents N1** : prise en charge, qualification et diagnostic des tickets, satisfaction utilisateurs maintenue à 100 %",
+        "**Support polyvalent** : postes, TPE, imprimantes et logiciels métiers sous Windows et Linux",
+        "**Processus et escalade** : suivi du cycle de vie des tickets, base de connaissances, escalade qualifiée vers le N2/N3",
+        "**Accès** : création de comptes, réinitialisation de mots de passe",
+        "**Déploiement** : installation et configuration à distance de périphériques et de mises à jour"
+      ],
+      "tags": ["Helpdesk ITIL", "Windows & Linux", "Logiciels métiers", "Documentation"]
+    },
+    {
+      "title": "Gérant & technicien IT",
+      "company": "De Meyer Repair",
+      "place": "Auto-entreprise",
+      "period": "Septembre 2021 — Juillet 2023",
+      "current": false,
+      "summary": "Support, maintenance et conseil IT pour particuliers et TPE.",
+      "missions": [
+        "**Maintenance mobile et PC** : diagnostic et réparation de smartphones et tablettes, remplacement d'écrans, batteries et connecteurs",
+        "**Données** : récupération de données sur supports endommagés, sécurisation des postes",
+        "**Installation** : déploiement et optimisation de Windows, Linux et macOS"
+      ],
+      "tags": ["Hardware", "iPhone & Android", "Récupération de données", "Relation client"]
+    }
+  ],
+  "education": [
+    {
+      "title": "Expert en sécurité digitale (Bac+5)",
+      "school": "Aston École IT",
+      "period": "2028 — 2029",
+      "status": "next",
+      "text": "Mastère en alternance. Pentest, blue team et audit.",
+      "note": "Objectif"
+    },
+    {
+      "title": "Administrateur systèmes & réseaux (Bac+4)",
+      "school": "Aston École IT",
+      "period": "2026 — 2028",
+      "status": "current",
+      "text": "En alternance chez XEFI. Architecture SI, virtualisation, administration avancée.",
+      "note": "En cours"
+    },
+    {
+      "title": "Technicien supérieur systèmes & réseaux (Bac+2)",
+      "school": "Aston École IT",
+      "period": "2025 — 2026",
+      "status": "done",
+      "text": "Titre professionnel de niveau 5 en alternance. Windows Server et Linux, virtualisation, réseau et sécurité.",
+      "note": ""
+    },
+    {
+      "title": "Technicien d'assistance en informatique (niveau Bac)",
+      "school": "Aston École IT",
+      "period": "2024 — 2025",
+      "status": "done",
+      "text": "Titre professionnel de niveau 4 en alternance.",
+      "note": "Validé avec les félicitations du jury"
+    }
+  ]
+}

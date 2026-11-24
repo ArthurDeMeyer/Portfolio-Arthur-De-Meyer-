@@ -20,9 +20,11 @@ content:
           - { name: name, label: Nom, type: string }
           - { name: role, label: Rôle (pied de page), type: string }
           - { name: headline, label: Grand titre de l'accueil, type: string, description: "Court : une ligne de ce que tu fais" }
+          - { name: taglines, label: Phrases qui défilent sous le nom, type: string, list: true }
           - { name: intro, label: Texte sous le titre, type: text }
           - { name: status, label: Statut (à côté de la LED verte), type: string, description: "Ex. En poste chez XEFI Lille Nord" }
           - { name: location, label: Localisation, type: string }
+          - { name: since, label: Dans l'IT depuis (année), type: number, description: "Sert au compteur d'années d'expérience" }
           - { name: email, label: Email, type: string }
           - { name: linkedin, label: Lien LinkedIn, type: string }
           - { name: github, label: Lien GitHub, type: string }

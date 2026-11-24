@@ -3,152 +3,265 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Arthur De Meyer · Administrateur systèmes & réseaux</title>
+  <title>Arthur De Meyer · SysAdmin & Cyber</title>
   <meta name="description" content="Portfolio d'Arthur De Meyer, administrateur systèmes & réseaux en alternance chez XEFI, cap sur la cybersécurité. Active Directory, réseau, pfSense, déploiement, PowerShell.">
 
-  <meta property="og:title" content="Arthur De Meyer · Administrateur systèmes & réseaux">
-  <meta property="og:description" content="Active Directory, réseau, pfSense, déploiement et automatisation PowerShell. Cap sur la cybersécurité.">
+  <meta property="og:title" content="Arthur De Meyer · SysAdmin & Cyber">
+  <meta property="og:description" content="Portfolio interactif : Active Directory, pfSense, Cisco, Sysprep, PowerShell. Build it. Break it. Fix it.">
   <meta property="og:image" content="https://arthur-de-meyer.fr/assets/preview-portfolio.JPG">
   <meta property="og:url" content="https://arthur-de-meyer.fr">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0b0d14">
+  <meta name="theme-color" content="#030504">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="is-booting">
   <a class="skip" href="#main">Aller au contenu</a>
 
-  <header class="nav">
+  <!-- Séquence de démarrage (une fois par session, Échap ou clic pour passer) -->
+  <div class="boot" id="boot" aria-hidden="true">
+    <pre class="boot-log" id="boot-log"></pre>
+    <p class="boot-skip">[ clic ou Échap pour passer ]</p>
+  </div>
+
+  <!-- Décor -->
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="crt" aria-hidden="true"></div>
+  <div class="glow-cursor" id="glow-cursor" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
     <div class="nav-inner">
-      <a class="brand" href="#top" data-bind="site.name">Arthur De Meyer</a>
+      <a class="brand" href="#top" aria-label="Accueil">
+        <span class="brand-prompt">&gt;_</span>
+        <span class="brand-name">arthur<span class="dim">@</span>demeyer</span>
+      </a>
       <nav class="nav-links" id="nav-links" aria-label="Sections">
-        <a href="#profil">Profil</a>
-        <a href="#competences">Compétences</a>
-        <a href="#projets">Projets</a>
-        <a href="#parcours">Parcours</a>
-        <a href="#formation">Formation</a>
+        <a href="#profil"><span class="dim">./</span>profil</a>
+        <a href="#skills"><span class="dim">./</span>skills</a>
+        <a href="#projets"><span class="dim">./</span>lab</a>
+        <a href="#parcours"><span class="dim">./</span>xp</a>
+        <a href="#formation"><span class="dim">./</span>cursus</a>
       </nav>
-      <a class="btn btn-small btn-primary nav-cta" data-href="mailto" href="#">Me contacter</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><span data-icon="menu"></span></button>
+      <a class="btn btn-ghost btn-sm nav-cta" data-href="mailto" href="#">contact</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
   <main id="main">
-    <!-- Hero -->
+    <!-- ================= HERO ================= -->
     <section class="hero" id="top">
       <div class="wrap hero-grid">
-        <div class="hero-text reveal">
-          <p class="status"><span class="led" aria-hidden="true"></span><span data-bind="site.status"></span></p>
-          <h1 data-bind="site.headline"></h1>
+        <div class="hero-text">
+          <p class="sys-status">
+            <span class="pulse" aria-hidden="true"></span>
+            SYSTEM STATUS: <b>ONLINE</b>
+            <span class="dim">·</span>
+            <span data-bind="site.status"></span>
+          </p>
+
+          <h1 class="glitch" id="hero-name" data-text="ARTHUR DE MEYER">ARTHUR DE MEYER</h1>
+
+          <p class="typing" aria-live="polite">
+            <span class="prompt-sign">root@sys:~$</span>
+            <span id="typing"></span><span class="caret" aria-hidden="true"></span>
+          </p>
+
           <p class="lead" data-bind="site.intro"></p>
+
           <div class="actions">
-            <a class="btn btn-primary" href="#projets">Voir les projets <span data-icon="arrow-down"></span></a>
-            <a class="btn btn-secondary" data-href="cv" href="#" target="_blank" rel="noopener">Télécharger le CV <span data-icon="download"></span></a>
+            <a class="btn btn-primary" href="#projets">
+              <span>./explorer_le_lab</span>
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+            </a>
+            <a class="btn btn-ghost" data-href="cv" href="#" target="_blank" rel="noopener">
+              <span>cv.pdf</span>
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+            </a>
           </div>
+
+          <dl class="hud" id="hud">
+            <div><dt>uptime_it</dt><dd><span data-count="years">0</span><small> ans</small></dd></div>
+            <div><dt>labs</dt><dd><span data-count="projects">0</span></dd></div>
+            <div><dt>titres</dt><dd><span data-count="titles">0</span></dd></div>
+            <div><dt>objectif</dt><dd class="hud-target">CYBER</dd></div>
+          </dl>
         </div>
 
-        <div class="terminal reveal" id="terminal" aria-label="Terminal interactif">
-          <div class="terminal-bar">
-            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="terminal-title">arthur@portfolio: ~</span>
+        <div class="terminal" id="terminal">
+          <div class="term-bar">
+            <span class="dots" aria-hidden="true"><i class="r"></i><i class="y"></i><i class="g"></i></span>
+            <span class="term-title">root@portfolio: ~</span>
+            <span class="term-tag">zsh</span>
           </div>
-          <div class="terminal-body" id="terminal-output" tabindex="0"></div>
+          <div class="term-body" id="term-out" role="log" aria-label="Terminal interactif"></div>
         </div>
       </div>
+
+      <a class="scroll-hint" href="#profil" aria-label="Descendre">
+        <span>scroll</span><i></i>
+      </a>
     </section>
 
-    <!-- Profil -->
+    <!-- Bandeau défilant -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track" id="ticker"></div>
+    </div>
+
+    <!-- ================= PROFIL ================= -->
     <section class="section" id="profil">
-      <div class="wrap two-col">
-        <div>
-          <p class="eyebrow">Profil</p>
-          <h2>Le terrain d'abord, la sécurité ensuite</h2>
-          <div class="prose" id="about-text"></div>
-          <p class="motto"><span class="mono" data-bind="about.motto"></span></p>
-        </div>
-        <div class="trace" aria-label="Plan de carrière">
-          <div class="trace-head mono">
-            <span class="prompt">$</span> traceroute cybersecurite
-          </div>
-          <ol class="trace-list" id="roadmap"></ol>
-        </div>
-      </div>
-    </section>
-
-    <!-- Compétences -->
-    <section class="section" id="competences">
       <div class="wrap">
-        <p class="eyebrow">Compétences</p>
-        <h2>Ce que j'utilise au quotidien</h2>
-        <ul class="featured" id="skills-featured"></ul>
-        <div class="skill-grid" id="skills-grid"></div>
+        <header class="sec-head" data-reveal>
+          <span class="sec-num">01</span>
+          <p class="sec-cmd"><span class="prompt-sign">~$</span> cat profil.md</p>
+          <h2 data-scramble>Le terrain d'abord, la sécu ensuite</h2>
+        </header>
+
+        <div class="profil-grid">
+          <div class="profil-text" data-reveal>
+            <div class="prose" id="about-text"></div>
+            <p class="motto"><span class="motto-label">// philosophie</span><span class="motto-text" data-bind="about.motto"></span></p>
+          </div>
+
+          <div class="panel trace" data-reveal>
+            <div class="panel-bar"><span class="prompt-sign">$</span> traceroute <b>cybersecurite</b> <span class="dim">--max-hops 3</span></div>
+            <ol class="trace-list" id="roadmap"></ol>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Projets -->
+    <!-- ================= SKILLS ================= -->
+    <section class="section" id="skills">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <span class="sec-num">02</span>
+          <p class="sec-cmd"><span class="prompt-sign">~$</span> nmap -sV arthur.local</p>
+          <h2 data-scramble>Stack technique</h2>
+        </header>
+
+        <div class="panel nmap" data-reveal>
+          <div class="panel-bar">
+            <span>Starting Nmap scan on <b>arthur.local</b></span>
+            <span class="nmap-progress"><i id="scan-bar"></i></span>
+            <span class="dim" id="scan-pct">0%</span>
+          </div>
+          <div class="nmap-grid" id="skills-grid"></div>
+          <p class="nmap-foot dim" id="scan-foot"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJETS ================= -->
     <section class="section" id="projets">
       <div class="wrap">
-        <p class="eyebrow">Projets</p>
-        <h2>Laboratoire</h2>
-        <p class="section-lead">Des maquettes montées de bout en bout, documentées comme en production.</p>
-        <div class="project-grid" id="projects"></div>
+        <header class="sec-head" data-reveal>
+          <span class="sec-num">03</span>
+          <p class="sec-cmd"><span class="prompt-sign">~$</span> ls -la ./laboratoire</p>
+          <h2 data-scramble>Laboratoire</h2>
+        </header>
+        <div class="projects" id="projects"></div>
       </div>
     </section>
 
-    <!-- Parcours -->
+    <!-- ================= PARCOURS ================= -->
     <section class="section" id="parcours">
       <div class="wrap">
-        <p class="eyebrow">Parcours</p>
-        <h2>Expérience professionnelle</h2>
-        <ol class="timeline" id="experience"></ol>
-        <div class="center-action">
-          <a class="btn btn-secondary" data-href="cv" href="#" target="_blank" rel="noopener">Télécharger le CV complet (PDF) <span data-icon="download"></span></a>
+        <header class="sec-head" data-reveal>
+          <span class="sec-num">04</span>
+          <p class="sec-cmd"><span class="prompt-sign">~$</span> git log --graph carriere</p>
+          <h2 data-scramble>Parcours pro</h2>
+        </header>
+        <ol class="gitlog" id="experience"></ol>
+        <div class="center-action" data-reveal>
+          <a class="btn btn-ghost" data-href="cv" href="#" target="_blank" rel="noopener">
+            <span>télécharger le cv complet (.pdf)</span>
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Formation -->
+    <!-- ================= FORMATION ================= -->
     <section class="section" id="formation">
       <div class="wrap">
-        <p class="eyebrow">Formation</p>
-        <h2>Cursus</h2>
-        <ol class="timeline" id="education"></ol>
+        <header class="sec-head" data-reveal>
+          <span class="sec-num">05</span>
+          <p class="sec-cmd"><span class="prompt-sign">~$</span> apt install cybersecurity-expert</p>
+          <h2 data-scramble>Cursus & certifications</h2>
+        </header>
+        <div class="panel apt" data-reveal>
+          <div class="panel-bar"><span>Reading package lists… <b class="ok">Done</b></span></div>
+          <ol class="apt-list" id="education"></ol>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- ================= FOOTER ================= -->
   <footer class="footer">
     <div class="wrap footer-grid">
       <div>
-        <p class="footer-name" data-bind="site.name"></p>
-        <p class="muted" data-bind="site.role"></p>
+        <p class="footer-name">Arthur <span class="accent">DE MEYER</span></p>
+        <p class="dim" data-bind="site.role"></p>
+        <div class="socials">
+          <a data-href="github" href="#" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </a>
+          <a data-href="linkedin" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a data-href="mailto" href="#" aria-label="Email">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
       </div>
-      <div class="footer-links">
-        <a data-href="mailto" href="#"><span data-icon="mail"></span><span data-bind="site.email"></span></a>
-        <a data-href="linkedin" href="#" target="_blank" rel="noopener"><span data-icon="linkedin"></span>LinkedIn</a>
-        <a data-href="github" href="#" target="_blank" rel="noopener"><span data-icon="github"></span>GitHub</a>
+
+      <div>
+        <h4>./navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#profil">&gt; profil</a></li>
+          <li><a href="#skills">&gt; stack technique</a></li>
+          <li><a href="#projets">&gt; laboratoire</a></li>
+          <li><a href="#parcours">&gt; parcours</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>./sys_info</h4>
+        <ul class="sysinfo">
+          <li><span>STATUS</span><b class="accent">ONLINE</b></li>
+          <li><span>LOC</span><b data-bind="site.location"></b></li>
+          <li><span>TIME</span><b id="clock">--:--:--</b></li>
+          <li><span>SESSION</span><b class="dim">VISITOR_GUEST</b></li>
+          <li><span>EMAIL</span><b><a data-href="mailto" href="#" data-bind="site.email"></a></b></li>
+        </ul>
       </div>
     </div>
     <div class="wrap footer-bottom">
-      <p class="muted mono">© <span id="year"></span> Arthur De Meyer</p>
-      <a class="muted" href="#top">Haut de page <span data-icon="arrow-up"></span></a>
+      <p class="dim">© <span id="year"></span> Arthur De Meyer · all protocols secured</p>
+      <p class="dim hint-konami">psst… ↑ ↑ ↓ ↓ ← → ← → B A</p>
+      <a class="back-top" href="#top">↑ top</a>
     </div>
   </footer>
 
   <!-- Fenêtre projet -->
-  <dialog class="modal" id="project-modal" aria-labelledby="modal-title">
-    <div class="modal-inner">
-      <div class="modal-head">
-        <h3 id="modal-title"></h3>
-        <button class="icon-btn" data-close aria-label="Fermer"><span data-icon="x"></span></button>
-      </div>
-      <div class="modal-body" id="modal-body"></div>
+  <dialog class="modal" id="modal" aria-labelledby="modal-title">
+    <div class="modal-bar">
+      <span class="dots"><button class="r" data-close aria-label="Fermer"></button><i class="y"></i><i class="g"></i></span>
+      <span class="modal-file" id="modal-file">project_viewer.exe</span>
+      <button class="modal-x" data-close aria-label="Fermer">esc ✕</button>
     </div>
+    <div class="modal-body" id="modal-body"></div>
   </dialog>
+
+  <!-- Easter egg -->
+  <div class="access" id="access" aria-hidden="true"><p>ACCESS GRANTED</p></div>
 
   <script src="app.js"></script>
 </body>

@@ -48,4 +48,4 @@ python -m http.server 8000
 | `assets/` | Captures des projets et image de partage |
 | `Cv.pdf` | CV téléchargeable |
 
-Refonte de l'interface faite avec la méthode unslop de Damir Sokolovsky ([@heydamir](https://x.com/heydamir)), CC BY 4.0.
+Interface : univers terminal / hacker, design system généré avec ui-ux-pro-max.

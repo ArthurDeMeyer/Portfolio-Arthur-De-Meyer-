@@ -3,9 +3,15 @@
     "name": "Arthur De Meyer",
     "role": "Administrateur systèmes & réseaux en alternance",
     "headline": "Administrateur systèmes & réseaux, cap sur la cybersécurité",
+    "taglines": [
+      "Administrateur systèmes & réseaux",
+      "Futur expert en cybersécurité",
+      "Build it. Break it. Fix it."
+    ],
     "intro": "Alternant chez XEFI Lille Nord en Bac+4. Je gère des parcs clients en infogérance : Active Directory, Microsoft 365, réseau, déploiement de postes et automatisation PowerShell.",
     "status": "En poste chez XEFI Lille Nord",
     "location": "Lille, France",
+    "since": 2021,
     "email": "demeyer.arthur@outlook.fr",
     "linkedin": "https://www.linkedin.com/in/arthur-de-meyer-/",
     "github": "https://github.com/ArthurDeMeyer",
@@ -109,7 +115,13 @@
       "title": "Infrastructure Active Directory",
       "summary": "Déploiement complet d'un contrôleur de domaine : configuration IP, promotion et organisation des OU.",
       "image": "assets/ad-project.png",
-      "techs": ["Windows Server 2022", "AD DS", "DNS", "GPO", "PowerShell"],
+      "techs": [
+        "Windows Server 2022",
+        "AD DS",
+        "DNS",
+        "GPO",
+        "PowerShell"
+      ],
       "intro": "Déploiement d'un contrôleur de domaine Windows Server 2022.",
       "sections": [
         {
@@ -131,7 +143,13 @@
       "title": "Sécurité périmétrique avec pfSense",
       "summary": "Segmentation en VLAN, filtrage strict par défaut et détection d'intrusion sur le WAN.",
       "image": "assets/pfsense-project.png",
-      "techs": ["pfSense", "VLAN", "Snort", "Firewalling", "pfctl"],
+      "techs": [
+        "pfSense",
+        "VLAN",
+        "Snort",
+        "Firewalling",
+        "pfctl"
+      ],
       "intro": "Sécurisation d'un réseau avec pfSense.",
       "sections": [
         {
@@ -153,7 +171,13 @@
       "title": "Masterisation Windows 10",
       "summary": "Création d'une image master : fichier de réponse, mode audit, généralisation et capture.",
       "image": "assets/sysprep.png",
-      "techs": ["Windows 10 LTSC", "Sysprep", "WSIM", "Mode audit", "XML"],
+      "techs": [
+        "Windows 10 LTSC",
+        "Sysprep",
+        "WSIM",
+        "Mode audit",
+        "XML"
+      ],
       "intro": "Création d'un master Windows 10 LTSC prêt à déployer.",
       "sections": [
         {
@@ -175,7 +199,11 @@
       "title": "Sys-Repair Toolkit",
       "summary": "Application de bureau pour le support N1 : monitoring en temps réel et réparations courantes en un clic.",
       "image": "assets/sys-repair.jpg",
-      "techs": ["PowerShell 5.1", "Windows Forms", ".NET Framework"],
+      "techs": [
+        "PowerShell 5.1",
+        "Windows Forms",
+        ".NET Framework"
+      ],
       "intro": "Un outil qui regroupe ce qui est éparpillé dans Windows (gestionnaire des tâches, services, ipconfig) dans une seule interface, pour diagnostiquer plus vite.",
       "sections": [
         {
@@ -203,7 +231,13 @@
       "title": "Infrastructure Cisco multi-sites",
       "summary": "Interconnexion d'un siège à Lille et d'une agence à Paris : routage inter-VLAN, lien WAN et relais DHCP centralisé.",
       "image": "assets/infra-cisco.png",
-      "techs": ["Packet Tracer", "Cisco IOS", "802.1Q", "Routage statique", "DHCP Relay"],
+      "techs": [
+        "Packet Tracer",
+        "Cisco IOS",
+        "802.1Q",
+        "Routage statique",
+        "DHCP Relay"
+      ],
       "intro": "Architecture v4 : un siège et une agence reliés par un lien WAN simulé, opérationnelle de bout en bout.",
       "sections": [
         {
@@ -235,7 +269,14 @@
         "**Automatisation** : scripts PowerShell pour industrialiser les tâches récurrentes",
         "**Projet d'infrastructure** : installation complète de l'infrastructure d'un magasin client"
       ],
-      "tags": ["Active Directory", "Microsoft 365", "Atera", "PowerShell", "Réseau", "Infogérance"]
+      "tags": [
+        "Active Directory",
+        "Microsoft 365",
+        "Atera",
+        "PowerShell",
+        "Réseau",
+        "Infogérance"
+      ]
     },
     {
       "title": "Technicien systèmes & réseaux de proximité (alternance)",
@@ -252,7 +293,14 @@
         "**Sécurité du poste** : patch management, vérification du chiffrement BitLocker et des agents EDR",
         "**Réseau et supervision** : brassage, dépannage LAN/WLAN, VPN, supervision Centreon et migrations Wi-Fi"
       ],
-      "tags": ["Active Directory", "Entra ID", "Microsoft 365", "Intune", "Centreon", "Déploiement"]
+      "tags": [
+        "Active Directory",
+        "Entra ID",
+        "Microsoft 365",
+        "Intune",
+        "Centreon",
+        "Déploiement"
+      ]
     },
     {
       "title": "Technicien support N1 (alternance)",
@@ -268,7 +316,12 @@
         "**Accès** : création de comptes, réinitialisation de mots de passe",
         "**Déploiement** : installation et configuration à distance de périphériques et de mises à jour"
       ],
-      "tags": ["Helpdesk ITIL", "Windows & Linux", "Logiciels métiers", "Documentation"]
+      "tags": [
+        "Helpdesk ITIL",
+        "Windows & Linux",
+        "Logiciels métiers",
+        "Documentation"
+      ]
     },
     {
       "title": "Gérant & technicien IT",
@@ -282,7 +335,12 @@
         "**Données** : récupération de données sur supports endommagés, sécurisation des postes",
         "**Installation** : déploiement et optimisation de Windows, Linux et macOS"
       ],
-      "tags": ["Hardware", "iPhone & Android", "Récupération de données", "Relation client"]
+      "tags": [
+        "Hardware",
+        "iPhone & Android",
+        "Récupération de données",
+        "Relation client"
+      ]
     }
   ],
   "education": [
@@ -292,7 +350,7 @@
       "period": "2028 — 2029",
       "status": "next",
       "text": "Mastère en alternance. Pentest, blue team et audit.",
-      "note": "Objectif"
+      "note": ""
     },
     {
       "title": "Administrateur systèmes & réseaux (Bac+4)",
@@ -300,7 +358,7 @@
       "period": "2026 — 2028",
       "status": "current",
       "text": "En alternance chez XEFI. Architecture SI, virtualisation, administration avancée.",
-      "note": "En cours"
+      "note": ""
     },
     {
       "title": "Technicien supérieur systèmes & réseaux (Bac+2)",
